@@ -49,10 +49,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnDrawRadius()
+    private void OnDrawGizmos () //Draw Gizmos on feet to check the colliding
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(feet.position, checkRadius);
+        if (feet != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(feet.position, checkRadius);
+        }
     }
 
 }

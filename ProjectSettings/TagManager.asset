@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - Object
   - Background
+  - Bullet
+  - Element Object
   layers:
   - Default
   - TransparentFX
@@ -15,8 +17,8 @@ TagManager:
   - Water
   - UI
   - Object
-  - 
-  - 
+  - Player
+  - Bullet
   - 
   - 
   - 
@@ -52,4 +54,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2755869389
+    locked: 0
+  - name: Infront Player
+    uniqueID: 1147904369
     locked: 0
