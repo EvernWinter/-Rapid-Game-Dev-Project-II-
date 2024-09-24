@@ -408,8 +408,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab723eb9d0335c4faa00b8ad1079929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  rotationIntensity: 5
+  blockType: 0
+  isBlockInteractable: 0
 --- !u!212 &388170539
 SpriteRenderer:
   m_ObjectHideFlags: 0
