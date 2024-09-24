@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Block : MonoBehaviour
+public class Block2D : MonoBehaviour
 {
     public enum ControlMode
     {
@@ -39,10 +39,7 @@ public class Block : MonoBehaviour
             {
                 isPickedUp = true;
                 isFrozen = false;
-
-                // Set the block to dynamic mode and disable gravity
-                rb.isKinematic = false;  // Ensure the block is dynamic when picked up
-                rb.gravityScale = 0;     // Disable gravity while picked up
+                rb.gravityScale = 0; // Disable gravity while picked up
                 rb.velocity = Vector2.zero; // Stop any movement
                 StopAllCoroutines(); // Stop any return delay if it's active
             }
