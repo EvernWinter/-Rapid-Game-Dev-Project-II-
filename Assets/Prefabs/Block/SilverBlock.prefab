@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8976437823096013644}
   - component: {fileID: 5238444499620099407}
   - component: {fileID: 9095818327666750651}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SilverBlock
   m_TagString: Block
   m_Icon: {fileID: 0}
@@ -99,8 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab723eb9d0335c4faa00b8ad1079929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockType: 2
-  isBlockInteractable: 1
+  controlMode: 0
+  moveSpeed: 10
+  rotationIntensity: 5
+  returnDelay: 2
+  followSpeed: 5
 --- !u!61 &5238444499620099407
 BoxCollider2D:
   m_ObjectHideFlags: 0
