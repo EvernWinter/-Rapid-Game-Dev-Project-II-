@@ -3,25 +3,45 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
+    public enum BlockType
+    {
+        Ordinary = 0,
+        Copper = 1,
+        Silver = 2,
+        Gold = 3,
+        LapisLazuli = 4,
+        Diamond = 5
+    };
+
     public enum ControlMode
     {
         DelayedReturn, // Block returns to normal physics after a delay
         ManualControl  // Block is never affected by physics unless controlled by player
     }
 
+    public BlockType blockType;
     public ControlMode controlMode = ControlMode.DelayedReturn; // Default mode
     public float moveSpeed = 10f; // Speed at which the block moves towards the mouse position
     public float rotationIntensity = 5f; // How much the block rotates upon hitting an obstacle
     public float returnDelay = 2f; // Delay before returning to normal physics in DelayedReturn mode
     public float followSpeed = 5f; // Adjustable speed to control how fast the block follows the mouse
+    public int blockIndex = 0;
 
     private Camera cam;
     private Rigidbody2D rb;
     private bool isPickedUp = false;
     private bool isFrozen = false;
 
+    public static Block Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
+        blockIndex = (int)blockType;
         cam = Camera.main;
         rb = GetComponent<Rigidbody2D>();
     }
