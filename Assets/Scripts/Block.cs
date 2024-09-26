@@ -55,7 +55,7 @@ public class Block : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
             // If the ray hits the block, pick it up
-            if (hit.collider != null && hit.transform == transform)
+            if (hit.collider != null && hit.transform == transform && rb != null)
             {
                 isPickedUp = true;
                 isFrozen = false;
@@ -87,7 +87,7 @@ public class Block : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isPickedUp)
+        if (isPickedUp && rb != null)
         {
             // Get the mouse position in world space
             Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -100,7 +100,7 @@ public class Block : MonoBehaviour
             float randomRotation = Random.Range(-rotationIntensity, rotationIntensity);
             rb.angularVelocity = randomRotation;
         }
-        else if (isFrozen)
+        else if (isFrozen && rb != null)
         {
             // Keep the block frozen, no movement or rotation
             rb.velocity = Vector2.zero;
@@ -111,7 +111,7 @@ public class Block : MonoBehaviour
     // When the block collides with something, apply some rotation if it's picked up
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (isPickedUp)
+        if (isPickedUp && rb != null)
         {
             // Apply random rotation upon collision to give a more natural levitating feel
             float randomRotation = Random.Range(-rotationIntensity, rotationIntensity);
@@ -123,10 +123,13 @@ public class Block : MonoBehaviour
     void FreezeBlock()
     {
         isFrozen = true;
-        rb.velocity = Vector2.zero;
-        rb.angularVelocity = 0;
-        rb.gravityScale = 0; // Disable gravity
-        rb.isKinematic = true; // Set to kinematic, but still allow collisions
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0;
+            rb.gravityScale = 0; // Disable gravity
+            rb.isKinematic = true; // Set to kinematic, but still allow collisions
+        }
     }
 
     // Return the block to normal physics after a delay
@@ -136,8 +139,11 @@ public class Block : MonoBehaviour
         yield return new WaitForSeconds(returnDelay); // Wait for the specified delay
 
         // Unfreeze the block and restore normal physics
-        isFrozen = false;
-        rb.gravityScale = 1; // Re-enable gravity
-        rb.isKinematic = false; // Allow the block to be affected by physics again
+        if (rb != null)
+        {
+            isFrozen = false;
+            rb.gravityScale = 1; // Re-enable gravity
+            rb.isKinematic = false; // Allow the block to be affected by physics again
+        }
     }
 }
