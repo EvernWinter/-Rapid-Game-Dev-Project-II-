@@ -14,6 +14,16 @@ public class BlockPuzzle : MonoBehaviour
     [SerializeField] float minBlockSnapDistance = 1f;
     [SerializeField] private Text[] text_BlockType = new Text[3];
     [SerializeField] int[] randomIndexes = new int[3];
+    [SerializeField] private int numHolderOccupied = 0;
+
+    public bool isBlockPuzzlePass = false;
+
+    public static BlockPuzzle Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -36,11 +46,21 @@ public class BlockPuzzle : MonoBehaviour
                     {
                         specialBlock.transform.position = specialBlockHolders[i].transform.position;
                         specialBlock.transform.rotation = specialBlockHolders[i].transform.rotation;
-                        isHolderOccupied[i] = true;
                         Debug.Log($"Block {blockIndex} matched Holder {i}. Snapped successfully.");
+
+                        if (isHolderOccupied[i] == false)
+                        {
+                            isHolderOccupied[i] = true;
+                            numHolderOccupied++;
+                        }
                     }
                 }
             }
+        }
+
+        if(numHolderOccupied >= 3)
+        {
+            isBlockPuzzlePass = true;
         }
     }
 
