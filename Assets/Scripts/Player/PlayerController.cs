@@ -19,8 +19,19 @@ public class PlayerController : MonoBehaviour
     
     [Header("Animation")] //Player animation value
     [SerializeField] private AnimationReferenceAsset idle;
-    
-    
+
+    [Header("Variable")]
+    [SerializeField] private bool isCutSceneOn = false;
+    public bool IsCutSceneOn { get { return isCutSceneOn; } set { isCutSceneOn = value; } }
+
+    public static PlayerController Instance;
+
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,8 +41,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
-        Jump();
+        if(!isCutSceneOn)
+        {
+            Move();
+            Jump();
+        }
+        
     }
 
     private void Move()
