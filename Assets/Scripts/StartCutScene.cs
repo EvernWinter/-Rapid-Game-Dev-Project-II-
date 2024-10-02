@@ -11,6 +11,8 @@ public class StartCutScene : MonoBehaviour
 
     [SerializeField] private BoxCollider2D boxCollider2D;
 
+    [SerializeField] private GameObject[] lanterns;
+
 
     void Start()
     {
@@ -53,7 +55,24 @@ public class StartCutScene : MonoBehaviour
                 PlayerController.Instance.IsCutSceneOn = true;
             }
 
-            Invoke(nameof(ChangeCutscene), 2f);
+            StartCoroutine(LanternPreviewCoroutine());
+            Invoke(nameof(ChangeCutscene), lanterns.Length * 1f);
+        }
+    }
+
+    private IEnumerator LanternPreviewCoroutine()
+    {
+        for(int i = 0; i < lanterns.Length; i++)
+        {
+            yield return new WaitForSeconds(0.5f);
+            lanterns[i].GetComponent<Lantern>().LanternOn();
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        for (int i = 0; i < lanterns.Length; i++)
+        {
+            lanterns[i].GetComponent<Lantern>().LanternOff();
         }
     }
 
