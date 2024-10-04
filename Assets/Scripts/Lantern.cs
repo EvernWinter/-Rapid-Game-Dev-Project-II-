@@ -7,6 +7,9 @@ public class Lantern : MonoBehaviour
     [SerializeField] private GameObject lanternOn;
     [SerializeField] private GameObject lanternOff;
 
+    public bool isLanternOn = false;
+    public int lanternIndex = 999;
+
     void Start()
     {
         LanternOff();
@@ -21,11 +24,21 @@ public class Lantern : MonoBehaviour
     {
         lanternOn.SetActive(true);
         lanternOff.SetActive(false);
+        isLanternOn = true;
     }
 
     public void LanternOff()
     {
         lanternOff.SetActive(true);
         lanternOn.SetActive(false);
+        isLanternOn = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Bullet"))
+        {
+            LanternOn();
+        }
     }
 }

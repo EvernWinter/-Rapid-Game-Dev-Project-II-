@@ -32,5 +32,10 @@ public class Bullet : Element
             }
            
         }
+
+        if (other.CompareTag("Lantern"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

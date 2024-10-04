@@ -11,22 +11,44 @@ public class StartCutScene : MonoBehaviour
 
     [SerializeField] private BoxCollider2D boxCollider2D;
 
-    [SerializeField] private GameObject[] lanterns;
+    [SerializeField] private List<GameObject> lanternsList;
+    [SerializeField] private GameObject lanternPrefab;
+    [SerializeField] private List<GameObject> lanternSpawnerPosition;
+    [SerializeField] private List<int> lanternIndexList;
+
+    [SerializeField] private GameObject lanternPuzzlePassed;
 
 
     void Start()
     {
         BoxCollider2D boxCollider2D = GetComponent<BoxCollider2D>();
+        lanternPuzzlePassed.SetActive(false);
 
         if (isPlayCutSceneOnStart)
         {
             Invoke(nameof(CutSceneOnStart), 1f);
         }
+
+        for (int i = 0; i < lanternSpawnerPosition.Count; i++)
+        {
+            int random = Random.Range(0, lanternIndexList.Count);
+            GameObject lantern = Instantiate(lanternPrefab, lanternSpawnerPosition[i].transform);
+            lanternsList.Add(lantern);
+            lantern.GetComponent<Lantern>().lanternIndex = lanternIndexList[random];
+            lanternIndexList.RemoveAt(random);
+        }
     }
 
     void Update()
     {
-
+        if(GameManager.instance.CheckIfAllLanternIgnited())
+        {
+            lanternPuzzlePassed.SetActive(true);
+        }
+        else
+        {
+            lanternPuzzlePassed.SetActive(false);
+        }
     }
 
     private void CutSceneOnStart()
@@ -44,35 +66,42 @@ public class StartCutScene : MonoBehaviour
             Debug.Log("Cutscene Detect player");
             if (cutSceneState == CutSceneState.CutScene1)
             {
-                boxCollider2D.enabled = false;
+                //boxCollider2D.enabled = false;
                 camAnim.SetBool("cutscene1", true);
                 PlayerController.Instance.IsCutSceneOn = true;
             }
             else if (cutSceneState == CutSceneState.CutScene2)
             {
-                boxCollider2D.enabled = false;
+                //boxCollider2D.enabled = false;
                 camAnim.SetBool("cutscene2", true);
                 PlayerController.Instance.IsCutSceneOn = true;
             }
 
             StartCoroutine(LanternPreviewCoroutine());
-            Invoke(nameof(ChangeCutscene), lanterns.Length * 1f);
+            Invoke(nameof(ChangeCutscene), lanternsList.Count * 0.7f);
         }
     }
 
     private IEnumerator LanternPreviewCoroutine()
     {
-        for(int i = 0; i < lanterns.Length; i++)
+        for(int i = 0; i < lanternsList.Count; i++)
         {
             yield return new WaitForSeconds(0.5f);
-            lanterns[i].GetComponent<Lantern>().LanternOn();
+            foreach(GameObject lantern in lanternsList)
+            {
+                if(lantern.GetComponent<Lantern>().lanternIndex == i + 1)
+                {
+                    lantern.GetComponent<Lantern>().LanternOn();
+                    break;
+                }
+            }
         }
 
         yield return new WaitForSeconds(0.5f);
 
-        for (int i = 0; i < lanterns.Length; i++)
+        for (int i = 0; i < lanternsList.Count; i++)
         {
-            lanterns[i].GetComponent<Lantern>().LanternOff();
+            lanternsList[i].GetComponent<Lantern>().LanternOff();
         }
     }
 

@@ -58,6 +58,28 @@ public class GameManager : MonoBehaviour
         return true; // All gemstone types collected
     }
 
+    public bool CheckIfAllLanternIgnited()
+    {
+        GameObject[] lanterns = GameObject.FindGameObjectsWithTag("Lantern");
+        int lanternCount = 0;
+
+        foreach (var lantern in lanterns)
+        {
+            if(lantern.GetComponent<Lantern>().isLanternOn)
+            {
+                lanternCount++;
+            }
+        }
+
+        if(lanternCount >= lanterns.Length)
+        {
+            Debug.Log("LanternPassed");
+            return true;
+        }
+
+        return false;
+    }
+
 }
 
 public enum GemStoneTypeEnum
