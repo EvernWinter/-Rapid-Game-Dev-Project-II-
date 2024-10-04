@@ -22,7 +22,6 @@ public class ClockRandom : MonoBehaviour
     public TMP_Text[] boxText;
     private List<ColorEnum> availableColors = new List<ColorEnum>() { ColorEnum.Red, ColorEnum.Green, ColorEnum.Blue, ColorEnum.Yellow, ColorEnum.Purple };
     private Dictionary<int, ColorEnum> numberColorMapping = new Dictionary<int, ColorEnum>(); // To store number-color pairs
-    private bool have3 = false;
     // Start is called before the first frame update
     void Start()
     {

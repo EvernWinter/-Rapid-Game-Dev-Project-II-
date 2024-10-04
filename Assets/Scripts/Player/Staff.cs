@@ -15,6 +15,8 @@ public class Staff : MonoBehaviour
  
     [Header("Bullet")] 
     [SerializeField] private GameObject bullet;
+    private float shootCooldown = 1f; // Cooldown
+    private float nextShootTime = 0f; // Time at which the player can shoot again
    
     
     [Header("Bullet Property")]
@@ -34,9 +36,10 @@ public class Staff : MonoBehaviour
         UpdateAimTransform();
         RotateStaffTowardsMouse();
 
-        if (Input.GetButtonDown("Fire1")) // Replace "Fire1" with the input button for shooting
+        if (Input.GetButtonDown("Fire1") && Time.time >= nextShootTime) // Replace "Fire1" with the input button for shooting
         {
             Shoot(bullet);
+            nextShootTime = Time.time + shootCooldown;
         }
         Debug.DrawLine(shootPosition.position, mousePosition, Color.red);
     }
