@@ -7,7 +7,8 @@ public class Lantern : MonoBehaviour
     [SerializeField] private GameObject lanternOn;
     [SerializeField] private GameObject lanternOff;
 
-    public bool isLanternOn = false;
+    [SerializeField] private bool isLanternOn = false;
+    public bool IsLanternOn => isLanternOn;
     public int lanternIndex = 999;
 
     void Start()

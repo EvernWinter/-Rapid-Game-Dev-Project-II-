@@ -31,13 +31,8 @@ public class Block : MonoBehaviour
     private Rigidbody2D rb;
     private bool isPickedUp = false;
     private bool isFrozen = false;
+    
 
-    public static Block Instance;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
 
     void Start()
     {
@@ -46,7 +41,7 @@ public class Block : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    protected  virtual void Update()
     {
         if (Input.GetMouseButtonDown(1)) // Right-click to pick up
         {
@@ -109,7 +104,7 @@ public class Block : MonoBehaviour
     }
 
     // When the block collides with something, apply some rotation if it's picked up
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (isPickedUp && rb != null)
         {

@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var lantern in lanterns)
         {
-            if(lantern.GetComponent<Lantern>().isLanternOn)
+            if(lantern.GetComponent<Lantern>().IsLanternOn)
             {
                 lanternCount++;
             }
