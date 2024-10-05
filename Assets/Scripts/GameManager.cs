@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +10,10 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public TimeManager TimeManager; 
     
     [SerializeField] private List<GemStone> _gemStones = new List<GemStone>();
+
+    [SerializeField] private int currentLanternIndex = 1;
+    [SerializeField] public bool isLanternTurnOnCorrectly = false;
+    [SerializeField] private int lanternCount = 0;
 
     void Awake()
     {
@@ -58,16 +63,30 @@ public class GameManager : MonoBehaviour
         return true; // All gemstone types collected
     }
 
-    public bool CheckIfAllLanternIgnited()
+    public bool CheckIfAllLanternIgnitedCorrectly()
     {
         GameObject[] lanterns = GameObject.FindGameObjectsWithTag("Lantern");
-        int lanternCount = 0;
 
         foreach (var lantern in lanterns)
         {
-            if(lantern.GetComponent<Lantern>().IsLanternOn)
+            if(lantern.GetComponent<Lantern>().IsLanternOn && lantern.GetComponent<Lantern>().lanternIndex > currentLanternIndex)
+            {
+                lanternCount = 0;
+                currentLanternIndex = 1;
+                Debug.LogWarning("Wrong Lantern SUIIII");
+
+                foreach(GameObject l in lanterns)
+                {
+                    l.GetComponent<Lantern>().LanternOff();
+                }
+                break;
+            }
+            else if (lantern.GetComponent<Lantern>().IsLanternOn && lantern.GetComponent<Lantern>().lanternIndex == currentLanternIndex)
             {
                 lanternCount++;
+                currentLanternIndex++;
+                Debug.LogWarning("Correct Lantern SUIIII");
+                break;
             }
         }
 

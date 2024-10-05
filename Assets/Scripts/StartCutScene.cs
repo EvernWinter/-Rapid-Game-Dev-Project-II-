@@ -41,9 +41,10 @@ public class StartCutScene : MonoBehaviour
 
     void Update()
     {
-        if(GameManager.instance.CheckIfAllLanternIgnited())
+        if(GameManager.instance.isLanternTurnOnCorrectly)
         {
             lanternPuzzlePassed.SetActive(true);
+            boxCollider2D.enabled = false;
         }
         else
         {

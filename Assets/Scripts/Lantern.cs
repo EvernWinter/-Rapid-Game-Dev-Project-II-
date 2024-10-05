@@ -40,6 +40,14 @@ public class Lantern : MonoBehaviour
         if (other.gameObject.CompareTag("Bullet"))
         {
             LanternOn();
+            if(GameManager.instance.CheckIfAllLanternIgnitedCorrectly())
+            {
+                GameManager.instance.isLanternTurnOnCorrectly = true;
+            }
+            else
+            {
+                GameManager.instance.isLanternTurnOnCorrectly = false;
+            }
         }
     }
 }
