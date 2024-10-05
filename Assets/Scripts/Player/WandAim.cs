@@ -4,47 +4,61 @@ using UnityEngine;
 
 public class WandAim : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
-    private void UpdateAimTransform()
-    {
-        // Get the mouse position in world coordinates
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0; // Ensure mouse position is in 2D plane
-
-        // Calculate the direction and distance from the player to the mouse
-        Vector3 direction = (mousePosition - playerTransform.position).normalized;
-        float distance = Vector3.Distance(playerTransform.position, mousePosition);
-
-        // Clamp the distance between the minimum and maximum allowed values
-        distance = Mathf.Clamp(distance, minAimDistance, maxAimDistance);
-
-        // Update the aimTransform position to follow the mouse within the clamped range
-        aimTransform.position = playerTransform.position + direction * distance;
-    }
-
-    private void FaceTargetDirection()
-    {
-        // Compare the x positions of aimTransform and playerTransform
-        if (aimTransform.position.x > playerTransform.position.x)
-        {
-            // Aim is to the right of the player, face right
-            playerTransform.localScale = new Vector3(xScale, playerTransform.localScale.y, playerTransform.localScale.z);
-        }
-        else if (aimTransform.position.x < playerTransform.position.x)
-        {
-            // Aim is to the left of the player, face left
-            playerTransform.localScale = new Vector3(-xScale, playerTransform.localScale.y, playerTransform.localScale.z);
-        }
-    }
+    //[Header("Aim Settings")]
+    // [SerializeField] private Transform playerTransform;   // Reference to the player's transform
+    // [SerializeField] private Transform aimTransform;      // Reference to the aiming object (e.g., wand)
+    // [SerializeField] private float minAimDistance = 1f;   // Minimum distance the aim can be from the player
+    // [SerializeField] private float maxAimDistance = 5f;   // Maximum distance the aim can be from the player
+    // [SerializeField] private float xScale = 1f;           // Default X scale for the player sprite to flip
+    //
+    // private Vector3 initialPlayerScale;                   // Store initial player scale for flipping purposes
+    //
+    // private void Start()
+    // {
+    //     // Store the player's initial scale to handle flipping
+    //     initialPlayerScale = playerTransform.localScale;
+    // }
+    //
+    // private void Update()
+    // {
+    //     // Update the aim position and face the correct direction
+    //     UpdateAimTransform();
+    //     FaceTargetDirection();
+    // }
+    //
+    // // Update the aiming transform based on the mouse position and clamp it within a certain distance
+    // private void UpdateAimTransform()
+    // {
+    //     // Get the mouse position in world coordinates
+    //     Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //     mousePosition.z = 0; // Keep the mouse position on the 2D plane
+    //
+    //     // Calculate the direction from the player to the mouse
+    //     Vector3 direction = (mousePosition - playerTransform.position).normalized;
+    //
+    //     // Calculate the distance from the player to the mouse
+    //     float distance = Vector3.Distance(playerTransform.position, mousePosition);
+    //
+    //     // Clamp the distance within the allowed minimum and maximum
+    //     distance = Mathf.Clamp(distance, minAimDistance, maxAimDistance);
+    //
+    //     // Update the aimTransform position based on the direction and clamped distance
+    //     aimTransform.position = playerTransform.position + direction * distance;
+    // }
+    //
+    // // Flip the player to face the target direction based on the aim position
+    // private void FaceTargetDirection()
+    // {
+    //     // Compare the x positions of the aimTransform and playerTransform
+    //     if (aimTransform.position.x > playerTransform.position.x)
+    //     {
+    //         // Aim is to the right of the player, face right
+    //         playerTransform.localScale = new Vector3(Mathf.Abs(initialPlayerScale.x), initialPlayerScale.y, initialPlayerScale.z);
+    //     }
+    //     else if (aimTransform.position.x < playerTransform.position.x)
+    //     {
+    //         // Aim is to the left of the player, face left (flip horizontally)
+    //         playerTransform.localScale = new Vector3(-Mathf.Abs(initialPlayerScale.x), initialPlayerScale.y, initialPlayerScale.z);
+    //     }
+    // }
 }
