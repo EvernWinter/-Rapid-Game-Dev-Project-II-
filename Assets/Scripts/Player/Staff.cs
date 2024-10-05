@@ -13,13 +13,10 @@ public class Staff : MonoBehaviour
     public float minAimDistance = 1f; // Minimum allowed distance for aiming
     public float maxAimDistance = 5f; // Maximum allowed distance for aiming
  
-    [Header("Bullet")] 
+    [Header("Bullet Property")] 
     [SerializeField] private GameObject bullet;
     private float shootCooldown = 1f; // Cooldown
     private float nextShootTime = 0f; // Time at which the player can shoot again
-   
-    
-    [Header("Bullet Property")]
     [SerializeField] private float bulletSpd;
 
     [Header("Player")] [SerializeField] private float xScale;
@@ -61,6 +58,12 @@ public class Staff : MonoBehaviour
     }
     private void Shoot(GameObject bulletPrefab)
     {
+        if (bulletPrefab == null) 
+        {
+            Debug.LogWarning("Bullet prefab is missing or destroyed!");
+            return;
+        }
+
         // Calculate the shoot direction using the mouse position
         Vector3 shootDirection = (mousePosition - shootPosition.position).normalized;
 
@@ -71,8 +74,15 @@ public class Staff : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, shootPosition.position, Quaternion.Euler(new Vector3(0, 0, angle)));
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
 
-        // Set the bullet's velocity in the direction of shooting
-        rb.velocity = shootDirection * bulletSpd;
+        if (rb != null)
+        {
+            // Set the bullet's velocity in the direction of shooting
+            rb.velocity = shootDirection * bulletSpd;
+        }
+        else
+        {
+            Debug.LogWarning("Bullet prefab does not have a Rigidbody2D component!");
+        }
     }
 
     private void UpdateAimTransform() // Aim with Mouse
