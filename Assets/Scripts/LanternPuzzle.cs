@@ -21,11 +21,13 @@ public class LanternPuzzle : MonoBehaviour
 
     [SerializeField] private GameObject lanternPuzzlePassed;
     [SerializeField] private CinemachineBrain cinemachineBrain;
+    [SerializeField] private CameraController cameraController;
 
 
     private void Awake()
     {
         CinemachineBrain cinemachineBrain = GetComponent<CinemachineBrain>();
+        CameraController cameraController = GetComponent<CameraController>();
     }
 
     void Start()
@@ -115,10 +117,12 @@ public class LanternPuzzle : MonoBehaviour
     private void EnabledCineMachineBrain()
     {
         cinemachineBrain.enabled = true;
+        cameraController.enabled = false;
     }
 
     private void DisabledCineMachineBrain()
     {
+        cameraController.enabled = true;
         cinemachineBrain.enabled = false;
     }
 }
