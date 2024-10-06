@@ -115,7 +115,7 @@ public class Block : MonoBehaviour
     }
 
     // Freeze the block's movement but still allow collisions
-    void FreezeBlock()
+    public void FreezeBlock()
     {
         isFrozen = true;
         if (rb != null)

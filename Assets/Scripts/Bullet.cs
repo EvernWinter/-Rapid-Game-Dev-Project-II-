@@ -2,40 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : Element
+public class Bullet : MonoBehaviour
 {
-    [SerializeField] private ElementType element;
-
     // Start is called before the first frame update
     void Start()
     {
-        element = ElementType.Fire;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // Any update logic if necessary
     }
 
-    protected override void OnTriggerEnter(Collider other)
+    // Trigger detection (when using a Trigger Collider)
+    protected void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Element Object"))
-        {
-            // Check if the element type matches
-            if (element == other.GetComponent<ElementType>())
-            {
-                // Add logic if the element types match
-            }
-            else
-            {
-                Destroy(gameObject); // Destroy bullet if elements don't match
-            }
-        }
+        Debug.Log("Bullet hit: " + other.tag); // Log the collision
 
-        if (other.CompareTag("Lantern"))
+        if (other.CompareTag("Lantern") || other.CompareTag("Ground"))
         {
-            Destroy(gameObject); // Destroy bullet if it hits a lantern
+            Destroy(gameObject); // Destroy bullet if it hits a lantern or ground
+        }
+    }
+
+    // Non-trigger collision detection (when not using a Trigger Collider)
+    protected void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log("Bullet collided with: " + other.collider.tag); // Log the collision
+
+        if (other.collider.CompareTag("Ground"))
+        {
+            Destroy(gameObject); // Destroy bullet if it hits the ground
         }
     }
 

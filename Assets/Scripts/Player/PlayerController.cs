@@ -58,13 +58,37 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         isOnGround = Physics2D.OverlapCircle(feet.position, checkRadius, groundLayer);
+    
+        // Check for overlap with Block
+        Block overlappingBlock = GetOverlappingBlock();
+        if (overlappingBlock != null)
+        {
+            overlappingBlock.FreezeBlock(); // Freeze the block if overlapping
+        }
+
         if (isOnGround && Input.GetButtonDown("Jump"))
         {
             playerRb.velocity = new Vector2(playerRb.velocity.x, jumpForce);
         }
     }
 
-    private void OnDrawGizmos () //Draw Gizmos on feet to check the colliding
+    private Block GetOverlappingBlock()
+    {
+        // Use a circle overlap check for the feet
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(feet.position, checkRadius);
+    
+        foreach (Collider2D collider in colliders)
+        {
+            Block block = collider.GetComponent<Block>();
+            if (block != null)
+            {
+                return block; // Return the first overlapping block found
+            }
+        }
+        return null; // No overlapping block found
+    }
+
+    private void OnDrawGizmos() // Draw Gizmos on feet to check the colliding
     {
         if (feet != null)
         {
