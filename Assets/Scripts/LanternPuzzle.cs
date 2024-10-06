@@ -1,10 +1,11 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartCutScene : MonoBehaviour
+public class LanternPuzzle : MonoBehaviour
 {
-    [SerializeField] private enum CutSceneState { Null, CutSceneOnStart1, CutSceneOnStart2, CutSceneOnStart3, CutScene1, CutScene2, CutScene3, CutSceneEnd };
+    [SerializeField] private enum CutSceneState { Null, CutScene1};
     [SerializeField] private bool isPlayCutSceneOnStart;
     [SerializeField] private CutSceneState cutSceneState;
     [SerializeField] private Animator camAnim;
@@ -15,19 +16,23 @@ public class StartCutScene : MonoBehaviour
     [SerializeField] private GameObject lanternPrefab;
     [SerializeField] private List<GameObject> lanternSpawnerPosition;
     [SerializeField] private List<int> lanternIndexList;
+    [SerializeField] private bool isLanternPuzzlePassOnce = false;
+    [SerializeField] private GameObject gem;
 
     [SerializeField] private GameObject lanternPuzzlePassed;
+    [SerializeField] private CinemachineBrain cinemachineBrain;
 
+
+    private void Awake()
+    {
+        CinemachineBrain cinemachineBrain = GetComponent<CinemachineBrain>();
+    }
 
     void Start()
     {
+        DisabledCineMachineBrain();
         BoxCollider2D boxCollider2D = GetComponent<BoxCollider2D>();
         lanternPuzzlePassed.SetActive(false);
-
-        if (isPlayCutSceneOnStart)
-        {
-            Invoke(nameof(CutSceneOnStart), 1f);
-        }
 
         for (int i = 0; i < lanternSpawnerPosition.Count; i++)
         {
@@ -41,24 +46,20 @@ public class StartCutScene : MonoBehaviour
 
     void Update()
     {
-        if(GameManager.instance.isLanternTurnOnCorrectly)
+        if(GameManager.instance.isLanternTurnOnCorrectly && !isLanternPuzzlePassOnce)
         {
-            lanternPuzzlePassed.SetActive(true);
+            isLanternPuzzlePassOnce = true;
+            EnabledCineMachineBrain();
+            cutSceneState = CutSceneState.CutScene1;
+            camAnim.SetBool("cutscene1", true);
+            Invoke(nameof(ChangeCutscene), 2f);
             boxCollider2D.enabled = false;
-        }
-        else
-        {
-            lanternPuzzlePassed.SetActive(false);
+            PlayerController.Instance.IsCutSceneOn = true;
+            lanternPuzzlePassed.SetActive(true);
+            //Instantiate(gem, lanternPuzzlePassed.transform);
         }
     }
 
-    private void CutSceneOnStart()
-    {
-        cutSceneState = CutSceneState.CutSceneOnStart1;
-        camAnim.SetBool("cutsceneonstart1", true);
-        PlayerController.Instance.IsCutSceneOn = true;
-        Invoke(nameof(ChangeCutscene), 1.2f);
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -69,12 +70,7 @@ public class StartCutScene : MonoBehaviour
             {
                 //boxCollider2D.enabled = false;
                 camAnim.SetBool("cutscene1", true);
-                PlayerController.Instance.IsCutSceneOn = true;
-            }
-            else if (cutSceneState == CutSceneState.CutScene2)
-            {
-                //boxCollider2D.enabled = false;
-                camAnim.SetBool("cutscene2", true);
+                EnabledCineMachineBrain();
                 PlayerController.Instance.IsCutSceneOn = true;
             }
 
@@ -108,51 +104,21 @@ public class StartCutScene : MonoBehaviour
 
     private void ChangeCutscene()
     {
-        if (cutSceneState == CutSceneState.CutSceneEnd)
-        {
-            camAnim.SetBool("cutsceneEnd", false);
-            PlayerController.Instance.IsCutSceneOn = false;
-        }
-
         if (cutSceneState == CutSceneState.CutScene1)
         {
             camAnim.SetBool("cutscene1", false);
             PlayerController.Instance.IsCutSceneOn = false;
+            Invoke("DisabledCineMachineBrain", 1.5f);
         }
-        else if (cutSceneState == CutSceneState.CutScene2)
-        {
-            cutSceneState = CutSceneState.CutScene3;
-            camAnim.SetBool("cutscene2", false);
-            camAnim.SetBool("cutscene3", true);
-            Invoke(nameof(ChangeCutscene), 1.2f);
-            PlayerController.Instance.IsCutSceneOn = true;
-        }
-        else if (cutSceneState == CutSceneState.CutScene3)
-        {
-            cutSceneState = CutSceneState.CutSceneEnd;
-            camAnim.SetBool("cutscene3", false);
-            camAnim.SetBool("cutsceneEnd", true);
-            Invoke(nameof(ChangeCutscene), 1.2f);
-            PlayerController.Instance.IsCutSceneOn = true;
-        }
+    }
 
+    private void EnabledCineMachineBrain()
+    {
+        cinemachineBrain.enabled = true;
+    }
 
-
-        if (cutSceneState == CutSceneState.CutSceneOnStart1)
-        {
-            cutSceneState = CutSceneState.CutSceneOnStart2;
-            camAnim.SetBool("cutsceneonstart1", false);
-            camAnim.SetBool("cutsceneonstart2", true);
-            Invoke(nameof(ChangeCutscene), 2f);
-            PlayerController.Instance.IsCutSceneOn = true;
-        }
-        else if (cutSceneState == CutSceneState.CutSceneOnStart2)
-        {
-            cutSceneState = CutSceneState.CutSceneEnd;
-            camAnim.SetBool("cutsceneonstart2", false);
-            camAnim.SetBool("cutsceneEnd", true);
-            Invoke(nameof(ChangeCutscene), 1.2f);
-            PlayerController.Instance.IsCutSceneOn = true;
-        }
+    private void DisabledCineMachineBrain()
+    {
+        cinemachineBrain.enabled = false;
     }
 }

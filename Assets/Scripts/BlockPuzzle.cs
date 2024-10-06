@@ -15,6 +15,9 @@ public class BlockPuzzle : MonoBehaviour
     [SerializeField] private Text[] text_BlockType = new Text[3];
     [SerializeField] int[] randomIndexes = new int[3];
     [SerializeField] private int numHolderOccupied = 0;
+    [SerializeField] private GameObject blocksPuzzlePassed;
+    [SerializeField] private bool isBlockPuzzlePassOnce = false;
+    [SerializeField] private GameObject gem;
 
     public bool isBlockPuzzlePass = false;
 
@@ -27,6 +30,7 @@ public class BlockPuzzle : MonoBehaviour
 
     private void Start()
     {
+        blocksPuzzlePassed.SetActive(false);
         randomIndexes = GenerateUniqueRandomNumbers(3, 1, 5);
     }
 
@@ -58,9 +62,12 @@ public class BlockPuzzle : MonoBehaviour
             }
         }
 
-        if(numHolderOccupied >= 3)
+        if(numHolderOccupied >= 3 && !isBlockPuzzlePassOnce)
         {
+            isBlockPuzzlePassOnce = true;
             isBlockPuzzlePass = true;
+            blocksPuzzlePassed.SetActive(true);
+            //Instantiate(gem, blocksPuzzlePassed.transform);
         }
     }
 
