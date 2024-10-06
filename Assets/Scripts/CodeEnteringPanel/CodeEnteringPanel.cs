@@ -12,9 +12,11 @@ public class CodeEnteringPanel : MonoBehaviour
     [SerializeField] private GameObject _panel;
     [SerializeField] private Image _checker;
     
-    [SerializeField] private List<CorrectedCodeBox> correctedCodeBoxes;
-    [SerializeField] private List<InputCodeBox> inputCodeBoxes;
+    [SerializeField] private List<CorrectedCodeBox> _correctedCodeBoxes;
+    [SerializeField] private List<InputCodeBox> _inputCodeBoxes;
 
+    [SerializeField] private int _currentlyTyping;
+    
     private bool _isAllCorrect;
     
     void Awake()
@@ -27,6 +29,8 @@ public class CodeEnteringPanel : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        _currentlyTyping = 0;
     }
     
     // Start is called before the first frame update
@@ -38,8 +42,43 @@ public class CodeEnteringPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!_panel.activeSelf)
+            return;
 
+        // Check for number keys input (1-9) to update the currently typing box
+        for (int i = 1; i <= 9; i++)
+        {
+            if (Input.GetKeyDown(i.ToString()))
+            {
+                _inputCodeBoxes[_currentlyTyping].AssignNumber(i);
+            }
+        }
+
+        // Example to navigate through input boxes
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            _currentlyTyping = Mathf.Max(0, _currentlyTyping - 1);  // Move to the previous box
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            _currentlyTyping = Mathf.Min(_inputCodeBoxes.Count - 1, _currentlyTyping + 1);  // Move to the next box
+        }
+        UpdateCurrentInputBoxHighlight();
     }
+    
+    // Method to update the highlight
+    private void UpdateCurrentInputBoxHighlight()
+    {
+        // Unhighlight all boxes
+        foreach (var box in _inputCodeBoxes)
+        {
+            box.Unhighlight();
+        }
+
+        // Highlight the currently selected box
+        _inputCodeBoxes[_currentlyTyping].Highlight();
+    }
+
 
     public void Show()
     {
@@ -55,15 +94,15 @@ public class CodeEnteringPanel : MonoBehaviour
     {
         _isAllCorrect = true;  // Assume all are correct initially
 
-        for (int i = 0; i < correctedCodeBoxes.Count; i++)
+        for (int i = 0; i < _correctedCodeBoxes.Count; i++)
         {
-            if (correctedCodeBoxes[i].GetCorrectNumber() == inputCodeBoxes[i].GetCurrentNumber())
+            if (_correctedCodeBoxes[i].GetCorrectNumber() == _inputCodeBoxes[i].GetCurrentNumber())
             {
-                correctedCodeBoxes[i].ShowNumber();
+                _correctedCodeBoxes[i].ShowNumber();
             }
             else
             {
-                correctedCodeBoxes[i].HideNumber();
+                _correctedCodeBoxes[i].HideNumber();
                 
                 _isAllCorrect = false;  // Set to false if any box is incorrect
             }
@@ -84,9 +123,9 @@ public class CodeEnteringPanel : MonoBehaviour
     
     public void AssignNumbersToCorrectedBoxes()
     {
-        for (int i = 0; i < correctedCodeBoxes.Count; i++)
+        for (int i = 0; i < _correctedCodeBoxes.Count; i++)
         {
-            correctedCodeBoxes[i].AssignNumber(ClockRandom.Instance.RandomNumbers[i]);
+            _correctedCodeBoxes[i].AssignNumber(ClockRandom.Instance.RandomNumbers[i]);
         }
     }
 }
