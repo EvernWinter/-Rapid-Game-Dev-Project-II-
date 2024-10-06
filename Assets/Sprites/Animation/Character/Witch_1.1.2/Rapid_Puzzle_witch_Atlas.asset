@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
+  m_Name: Rapid_Puzzle_witch_Atlas
+  m_EditorClassIdentifier: 
+  textureLoadingMode: 0
+  onDemandTextureLoader: {fileID: 0}
+  atlasFile: {fileID: 4900000, guid: 026165b7cc75df64cae4729e235ef681, type: 3}
+  materials:
+  - {fileID: 2100000, guid: d5110b4626fcac44cab6408bb8653cf6, type: 2}
+  - {fileID: 2100000, guid: fad9ec9cbe5710549942b58ef6f5608b, type: 2}
+  - {fileID: 2100000, guid: d96e711e22f80934f8fdf35dfffc7606, type: 2}

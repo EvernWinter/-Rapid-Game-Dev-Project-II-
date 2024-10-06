@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Spine.Unity;
@@ -5,19 +6,22 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Player Movement")] //Movement value
+    [Header("Player Movement")] // Movement value
     [SerializeField] private float moveSpd;
     [SerializeField] private float jumpForce;
     [SerializeField] private float movementInput;
     [SerializeField] private Rigidbody2D playerRb;
+    public float PlayerMoveInput => playerRb.velocity.x;
+    public bool IsOnGround => isOnGround;
+    public bool IsJumping => isJumping;
     
-    [Header("GroundCheck")] //GroundCheck value
+    [Header("GroundCheck")] // GroundCheck value
     [SerializeField] private Transform feet;
     [SerializeField] private bool isOnGround;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float checkRadius;
     
-    [Header("Animation")] //Player animation value
+    [Header("Animation")] // Player animation value
     [SerializeField] private AnimationReferenceAsset idle;
 
     [Header("Variable")]
@@ -26,6 +30,9 @@ public class PlayerController : MonoBehaviour
 
     public static PlayerController Instance;
 
+    public Action OnJump;
+
+    private bool isJumping = false; // To prevent stacking coroutines
 
     private void Awake()
     {
@@ -35,24 +42,23 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerRb = this.GetComponent<Rigidbody2D>(); //Get the player rigidbody
+        playerRb = this.GetComponent<Rigidbody2D>(); // Get the player rigidbody
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!isCutSceneOn)
+        if (!isCutSceneOn)
         {
             Move();
             Jump();
         }
-        
     }
 
     private void Move()
     {
         movementInput = Input.GetAxis("Horizontal");
-        playerRb.velocity = new Vector2(movementInput * moveSpd,playerRb.velocity.y);
+        playerRb.velocity = new Vector2(movementInput * moveSpd, playerRb.velocity.y);
     }
 
     private void Jump()
@@ -66,10 +72,19 @@ public class PlayerController : MonoBehaviour
             overlappingBlock.FreezeBlock(); // Freeze the block if overlapping
         }
 
-        if (isOnGround && Input.GetButtonDown("Jump"))
+        if (isOnGround && Input.GetButtonDown("Jump") && !isJumping)
         {
-            playerRb.velocity = new Vector2(playerRb.velocity.x, jumpForce);
+            StartCoroutine(TriggerJump());
         }
+    }
+
+    private IEnumerator TriggerJump()
+    {
+        isJumping = true; // Prevent stacking the coroutine
+        yield return new WaitForSeconds(0.2f);
+        playerRb.velocity = new Vector2(playerRb.velocity.x, jumpForce);
+        OnJump?.Invoke();
+        isJumping = false; // Reset the flag when the coroutine ends
     }
 
     private Block GetOverlappingBlock()
