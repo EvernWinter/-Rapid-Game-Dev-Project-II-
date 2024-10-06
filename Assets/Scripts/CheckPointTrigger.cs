@@ -1,25 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class Spike : MonoBehaviour
+public class CheckPointTrigger : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
+    [SerializeField] private int checkPointIndex = 999;
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            CheckPointManager.Instance.MovePlayerToCheckPoint();
+            CheckPointManager.Instance.currentCheckPointIndex = checkPointIndex;
         }
     }
 }
