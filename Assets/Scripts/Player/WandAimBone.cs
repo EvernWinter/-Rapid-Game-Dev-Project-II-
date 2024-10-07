@@ -46,7 +46,7 @@ public class WandAimBone : MonoBehaviour
         FaceTargetDirection();
         
         // Add this in FaceTargetDirection() to debug the values
-        Debug.Log($"Aim Position X: {aimTransform.position.x}, Player Position X: {playerTransform.position.x}");
+        //Debug.Log($"Aim Position X: {aimTransform.position.x}, Player Position X: {playerTransform.position.x}");
 
     }
 

@@ -12,13 +12,13 @@ public class LanternPuzzle : MonoBehaviour
     [SerializeField] private List<GameObject> lanternSpawnerPosition;
     [SerializeField] private List<int> lanternIndexList;
     [SerializeField] private bool isLanternPuzzlePassOnce = false;
-    [SerializeField] private GameObject gem;
 
     [SerializeField] private GameObject lanternPuzzlePassed;
 
     [SerializeField] private enum LanternCutSceneState { Null, CutScene1 };
     [SerializeField] private bool isPlayCutSceneOnStart;
     [SerializeField] private LanternCutSceneState cutSceneState;
+    [SerializeField] private GameObject redGems;
 
 
     private void Awake()
@@ -53,8 +53,9 @@ public class LanternPuzzle : MonoBehaviour
             Invoke(nameof(ChangeCutscene), 2f);
             boxCollider2D.enabled = false;
             PlayerController.Instance.IsCutSceneOn = true;
-            lanternPuzzlePassed.SetActive(true);
+            //lanternPuzzlePassed.SetActive(true);
             //Instantiate(gem, lanternPuzzlePassed.transform);
+            redGems.GetComponent<Gems>().PuzzlePassed();
         }
     }
 

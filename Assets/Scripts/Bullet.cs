@@ -60,7 +60,7 @@ public class Bullet : MonoBehaviour
 
     protected void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Lantern") || other.CompareTag("Ground"))
+        if (other.CompareTag("Lantern") || other.CompareTag("Ground") || other.CompareTag("Object"))
         {
             SoundManager.Instance.FireImpactSound();
             isHit = true; // Set the hit flag to true

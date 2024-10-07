@@ -11,6 +11,7 @@ TagManager:
   - Element Object
   - Block
   - Lantern
+  - Stone
   layers:
   - Default
   - TransparentFX

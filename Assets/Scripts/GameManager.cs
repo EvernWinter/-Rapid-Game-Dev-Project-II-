@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
             Invoke(nameof(ChangeCutscene), 2f);
             PlayerController.Instance.IsCutSceneOn = true;
             portal.GetComponent<Portal>().isPass = true;
+            
         }
     }
     

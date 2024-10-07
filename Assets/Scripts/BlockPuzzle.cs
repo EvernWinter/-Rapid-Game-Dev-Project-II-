@@ -18,6 +18,10 @@ public class BlockPuzzle : MonoBehaviour
     [SerializeField] private GameObject blocksPuzzlePassed;
     [SerializeField] private bool isBlockPuzzlePassOnce = false;
     [SerializeField] private GameObject gem;
+    [SerializeField] private SpriteRenderer[] spriteRenderers = new SpriteRenderer[3]; // Use Image components instead of Text
+    [SerializeField] private Sprite[] blockTypeSprites;
+    [SerializeField] private GameObject greenGems;
+    
 
     public bool isBlockPuzzlePass = false;
 
@@ -66,12 +70,13 @@ public class BlockPuzzle : MonoBehaviour
         {
             isBlockPuzzlePassOnce = true;
             isBlockPuzzlePass = true;
-            blocksPuzzlePassed.SetActive(true);
+            //blocksPuzzlePassed.SetActive(true);
             //Instantiate(gem, blocksPuzzlePassed.transform);
+            greenGems.GetComponent<Gems>().PuzzlePassed();
         }
     }
 
-    private string GetBlockTypeString(int index)
+    /*private string GetBlockTypeString(int index)
     {
         string text = "";
 
@@ -98,6 +103,26 @@ public class BlockPuzzle : MonoBehaviour
                 break;
         }
         return text;
+    }*/
+    
+    private Sprite GetBlockTypeSprite(int index)
+    {
+        // Return the appropriate sprite based on the block type index
+        switch (index)
+        {
+            case 1:
+                return blockTypeSprites[0]; // Example: 'C' block sprite
+            case 2:
+                return blockTypeSprites[1]; // Example: 'S' block sprite
+            case 3:
+                return blockTypeSprites[2]; // Example: 'G' block sprite
+            case 4:
+                return blockTypeSprites[3]; // Example: 'L' block sprite
+            case 5:
+                return blockTypeSprites[4]; // Example: 'D' block sprite
+            default:
+                return null;
+        }
     }
 
     private int[] GenerateUniqueRandomNumbers(int count, int min, int max)
@@ -114,15 +139,15 @@ public class BlockPuzzle : MonoBehaviour
         // Randomly pick unique numbers
         for (int i = 0; i < count; i++)
         {
-            int randomIndex = UnityEngine.Random.Range(1, availableNumbers.Count);
+            int randomIndex = UnityEngine.Random.Range(0, availableNumbers.Count);
             numbers[i] = availableNumbers[randomIndex];
             availableNumbers.RemoveAt(randomIndex);
         }
 
-        for(int i = 0; i < numbers.Length; i++)
+        // Update the block type sprites based on the random indexes
+        for (int i = 0; i < numbers.Length; i++)
         {
-
-            text_BlockType[i].text = $"{GetBlockTypeString(numbers[i])}";
+            spriteRenderers[i].sprite = GetBlockTypeSprite(numbers[i]); // Set the sprite for the SpriteRenderer
         }
 
         return numbers;

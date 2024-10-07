@@ -21,16 +21,14 @@ public class Spike : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-<<<<<<< Updated upstream
             SoundManager.Instance.PlayerHurtSound();
             CheckPointManager.Instance.MovePlayerToCheckPoint();
-=======
             if (_playerDeathCoroutine == null)
             {
                 _playerDeathCoroutine = StartCoroutine(TeleportPlayerToCheckpoint());
                 PlayerAnimator.Instance.TriggerPlayerDeath();
             }
->>>>>>> Stashed changes
+
         }
     }
 

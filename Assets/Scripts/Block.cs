@@ -10,7 +10,8 @@ public class Block : MonoBehaviour
         Silver = 2,
         Gold = 3,
         LapisLazuli = 4,
-        Diamond = 5
+        Diamond = 5,
+        Stone = 6
     };
 
     public enum ControlMode
