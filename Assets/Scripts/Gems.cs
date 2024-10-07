@@ -21,7 +21,11 @@ public class Gems : MonoBehaviour
     {
         gemCollider = GetComponent<Collider2D>();
         gemRenderer = GetComponent<SpriteRenderer>();
-        cageRenderer = cage.GetComponent<SpriteRenderer>(); // Ensure cage is assigned and exists
+        if (cage != null)
+        {
+            cageRenderer = cage.GetComponent<SpriteRenderer>(); // Ensure cage is assigned and exists
+        }
+        
     }
 
     void Update()
@@ -40,7 +44,11 @@ public class Gems : MonoBehaviour
     public void PuzzlePassed()
     {
         puzzlePassed = true;
-        gemCollider.isTrigger = true; // Set gem collider to trigger
+        if (gemCollider != null)
+        {
+            gemCollider.isTrigger = true; // Set gem collider to trigger
+        }
+        
     }
 
     private void DropGem()

@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8976437823096013644}
   - component: {fileID: 5238444499620099407}
   - component: {fileID: 9095818327666750651}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: OrdinaryBlock
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 700851777
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 33dfb2185d7096b4d85a313d40f161c1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -107,7 +107,7 @@ MonoBehaviour:
   followSpeed: 5
   blockIndex: 0
   isPlayerStand: 1
-  isClosing: 1
+  isFrozen: 0
 --- !u!61 &5238444499620099407
 BoxCollider2D:
   m_ObjectHideFlags: 0

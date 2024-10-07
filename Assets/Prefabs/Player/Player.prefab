@@ -607,6 +607,7 @@ MonoBehaviour:
   jumpStartAnimation: {fileID: 11400000, guid: 6da7a3de999b2844db928161dca3775f, type: 2}
   jumpFallAnimation: {fileID: 11400000, guid: 3979fcd3a059bf84589b018df511f3dd, type: 2}
   jumpEndAnimation: {fileID: 11400000, guid: e80c8f6ca791e7e41bf7aefcfd315133, type: 2}
+  deathAnimation: {fileID: 11400000, guid: da356afbd2d624f408879890da3d074a, type: 2}
 --- !u!1 &2527773434369846778
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,8 +841,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3253050333390648929}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.016054826, w: 0.99987113}
+  m_LocalPosition: {x: 0.29306278, y: 0.4999939, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -884,6 +885,7 @@ MonoBehaviour:
   aimTransform: {fileID: 2197701482087199978}
   minAimDistance: 1
   maxAimDistance: 5
+  _skeletonUtilityBone: {fileID: 2794833064918942555}
 --- !u!1 &3494712098916811560
 GameObject:
   m_ObjectHideFlags: 0

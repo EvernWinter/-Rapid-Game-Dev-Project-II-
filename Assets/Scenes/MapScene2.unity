@@ -198,6 +198,12 @@ MonoBehaviour:
   blocksPuzzlePassed: {fileID: 0}
   isBlockPuzzlePassOnce: 0
   gem: {fileID: 0}
+  spriteRenderers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  blockTypeSprites: []
+  greenGems: {fileID: 0}
   isBlockPuzzlePass: 0
 --- !u!4 &51210940
 Transform:
@@ -36598,17 +36604,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8724333144601563140, guid: e97d22417193aec4985e78d726c5e68e, type: 3}
   m_PrefabInstance: {fileID: 1795329894}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1235393994 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2794833064918942555, guid: 6d1390e7a92fbd84784cfa4b1e1c21f6, type: 3}
-  m_PrefabInstance: {fileID: 4464641970540661619}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b238dfcde8209044b97d23f62bcaadf6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1242811064 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8163874368746891654, guid: 89ae394ec34de8b4fbc2fda59f6fbed3, type: 3}
@@ -39326,37 +39321,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 717060511436339212, guid: 6d1390e7a92fbd84784cfa4b1e1c21f6, type: 3}
-      propertyPath: _skeletonUtilityBone
-      value: 
-      objectReference: {fileID: 1235393994}
-    - target: {fileID: 938433203160213180, guid: 6d1390e7a92fbd84784cfa4b1e1c21f6, type: 3}
-      propertyPath: deathAnimation
-      value: 
-      objectReference: {fileID: 11400000, guid: da356afbd2d624f408879890da3d074a, type: 2}
     - target: {fileID: 1828329169510097895, guid: 6d1390e7a92fbd84784cfa4b1e1c21f6, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2197701482087199978, guid: 6d1390e7a92fbd84784cfa4b1e1c21f6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.29306278
-      objectReference: {fileID: 0}
-    - target: {fileID: 2197701482087199978, guid: 6d1390e7a92fbd84784cfa4b1e1c21f6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.4999939
-      objectReference: {fileID: 0}
-    - target: {fileID: 2197701482087199978, guid: 6d1390e7a92fbd84784cfa4b1e1c21f6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99987113
-      objectReference: {fileID: 0}
-    - target: {fileID: 2197701482087199978, guid: 6d1390e7a92fbd84784cfa4b1e1c21f6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.016054826
-      objectReference: {fileID: 0}
-    - target: {fileID: 2794833064918942555, guid: 6d1390e7a92fbd84784cfa4b1e1c21f6, type: 3}
-      propertyPath: mode
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4499419425885262778, guid: 6d1390e7a92fbd84784cfa4b1e1c21f6, type: 3}
       propertyPath: m_Mesh

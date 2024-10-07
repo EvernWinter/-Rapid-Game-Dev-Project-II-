@@ -249,9 +249,9 @@ GameObject:
   - component: {fileID: 7347188656556308145}
   - component: {fileID: 2787985731111345962}
   - component: {fileID: 7982227933402460467}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: ClockBlock
-  m_TagString: Block
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -310,8 +310,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 700851777
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.66426736, g: 0.3226415, b: 1, a: 1}
@@ -415,5 +415,9 @@ MonoBehaviour:
   returnDelay: 2
   followSpeed: 5
   blockIndex: 0
+  isPlayerStand: 0
+  isFrozen: 0
   _number: 0
+  _isInLightRadius: 0
+  lights: []
   _numberText: {fileID: 3233576003493115758}
