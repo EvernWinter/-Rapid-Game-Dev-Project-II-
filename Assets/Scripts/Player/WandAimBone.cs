@@ -64,13 +64,13 @@ public class WandAimBone : MonoBehaviour
         // Compare the x positions of the aimTransform and playerTransform
         if (aimTransform.position.x > playerTransform.position.x)
         {
-            playerTransform.localScale = new Vector3(-Mathf.Abs(initialPlayerScale.x), initialPlayerScale.y, initialPlayerScale.z);
+            playerTransform.localScale = new Vector3(Mathf.Abs(initialPlayerScale.x), initialPlayerScale.y, initialPlayerScale.z);
             currentFacingDirection = FacingDirection.Right; // Update direction
         }
         else if (aimTransform.position.x < playerTransform.position.x)
         {
             // Aim is to the left of the player, face left (flip horizontally)
-            playerTransform.localScale = new Vector3(Mathf.Abs(initialPlayerScale.x), initialPlayerScale.y, initialPlayerScale.z);
+            playerTransform.localScale = new Vector3(-Mathf.Abs(initialPlayerScale.x), initialPlayerScale.y, initialPlayerScale.z);
             currentFacingDirection = FacingDirection.Left; // Update direction
         }
     }

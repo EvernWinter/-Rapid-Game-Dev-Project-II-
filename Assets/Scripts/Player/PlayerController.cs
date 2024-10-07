@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator TriggerJump()
     {
         isJumping = true; // Prevent stacking the coroutine
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.01f);
         playerRb.velocity = new Vector2(playerRb.velocity.x, jumpForce);
         OnJump?.Invoke();
         isJumping = false; // Reset the flag when the coroutine ends

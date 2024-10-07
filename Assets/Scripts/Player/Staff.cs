@@ -106,12 +106,12 @@ public class Staff : MonoBehaviour
     {
         if (mousePosition.x > 0)
         {
-            playerTransform.localScale = new Vector3(xScale , playerTransform.localScale.y, playerTransform.localScale.z);
+            //playerTransform.localScale = new Vector3(xScale , playerTransform.localScale.y, playerTransform.localScale.z);
             staffPosition.localScale = new Vector3(staffPosition.localScale.x, Mathf.Abs(staffPosition.localScale.y), staffPosition.localScale.z);
         }
         else
         {
-            playerTransform.localScale = new Vector3(-xScale , playerTransform.localScale.y, playerTransform.localScale.z);
+            //playerTransform.localScale = new Vector3(-xScale , playerTransform.localScale.y, playerTransform.localScale.z);
             staffPosition.localScale = new Vector3(staffPosition.localScale.x, -Mathf.Abs(staffPosition.localScale.y), staffPosition.localScale.z);
         }
     }
