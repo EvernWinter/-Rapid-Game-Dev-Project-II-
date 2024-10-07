@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
+    public static PlayerAnimator Instance;
+    
     [SerializeField] private PlayerController _playerController;
     
     // Spine 2D animation reference
@@ -17,7 +19,10 @@ public class PlayerAnimator : MonoBehaviour
     [SerializeField] protected AnimationReferenceAsset jumpStartAnimation;
     [SerializeField] protected AnimationReferenceAsset jumpFallAnimation;
     [SerializeField] protected AnimationReferenceAsset jumpEndAnimation;
+    [SerializeField] protected AnimationReferenceAsset deathAnimation;
 
+    public bool isDead => currentAnimation == deathAnimation.name;
+    public float deathDuration => deathAnimation.Animation.Duration + 2f;
     
     protected string currentAnimation;
 
@@ -30,6 +35,18 @@ public class PlayerAnimator : MonoBehaviour
     {
         _playerController.OnJump = null;
     }
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -40,6 +57,12 @@ public class PlayerAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        if (currentAnimation == deathAnimation.name)
+        {
+            return;
+        }
+        
         if (!_playerController.IsOnGround && _playerController.GetComponent<Rigidbody2D>().velocity.y <= 0)
         {
             SetAnimation(jumpFallAnimation, false);
@@ -96,6 +119,16 @@ public class PlayerAnimator : MonoBehaviour
         {
             SetAnimation(idleAnimation, true);  // Loop idle animation
         }
+    }
+    
+    public void TriggerPlayerIdle()
+    {
+        SetAnimation(idleAnimation, false);
+    }
+
+    public void TriggerPlayerDeath()
+    {
+        SetAnimation(deathAnimation, false);
     }
 
     /// <summary>

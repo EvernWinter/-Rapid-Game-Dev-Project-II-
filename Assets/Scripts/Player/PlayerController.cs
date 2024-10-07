@@ -49,7 +49,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isCutSceneOn)
+
+        if (PlayerAnimator.Instance.isDead)
+        {
+            playerRb.velocity = new Vector2(0, 0);
+        }
+        
+        if (!isCutSceneOn && !PlayerAnimator.Instance.isDead)
         {
             Move();
             Jump();

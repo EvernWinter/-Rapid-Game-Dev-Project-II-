@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Spike : MonoBehaviour
 {
+    private Coroutine _playerDeathCoroutine = null;
+    
     void Start()
     {
         
@@ -19,8 +21,25 @@ public class Spike : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+<<<<<<< Updated upstream
             SoundManager.Instance.PlayerHurtSound();
             CheckPointManager.Instance.MovePlayerToCheckPoint();
+=======
+            if (_playerDeathCoroutine == null)
+            {
+                _playerDeathCoroutine = StartCoroutine(TeleportPlayerToCheckpoint());
+                PlayerAnimator.Instance.TriggerPlayerDeath();
+            }
+>>>>>>> Stashed changes
         }
+    }
+
+    private IEnumerator TeleportPlayerToCheckpoint()
+    {
+        yield return new WaitForSeconds(PlayerAnimator.Instance.deathDuration);
+        CheckPointManager.Instance.MovePlayerToCheckPoint();
+        yield return new WaitForSeconds(0.1f);
+        PlayerAnimator.Instance.TriggerPlayerIdle();
+        _playerDeathCoroutine = null;
     }
 }

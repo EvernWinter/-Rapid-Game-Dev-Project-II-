@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Spine.Unity;
 using UnityEngine;
 
 public class WandAimBone : MonoBehaviour
@@ -9,6 +10,8 @@ public class WandAimBone : MonoBehaviour
     [SerializeField] private Transform aimTransform;      // Reference to the aiming object (e.g., wand)
     [SerializeField] private float minAimDistance = 1f;   // Minimum distance the aim can be from the player
     [SerializeField] private float maxAimDistance = 5f;   // Maximum distance the aim can be from the player
+
+    [SerializeField] private SkeletonUtilityBone _skeletonUtilityBone;
     
     private Vector3 initialPlayerScale;                   // Store initial player scale for flipping purposes
 
@@ -29,6 +32,15 @@ public class WandAimBone : MonoBehaviour
 
     private void Update()
     {
+        if (PlayerAnimator.Instance.isDead)
+        {
+            _skeletonUtilityBone.mode = SkeletonUtilityBone.Mode.Follow;
+        }
+        else
+        {
+            _skeletonUtilityBone.mode = SkeletonUtilityBone.Mode.Override;
+        }
+        
         // Update the aim position and face the correct direction
         UpdateAimTransform();
         FaceTargetDirection();
