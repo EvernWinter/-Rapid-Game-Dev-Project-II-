@@ -12,7 +12,7 @@ public class Portal : MonoBehaviour
     [SerializeField] private float animationSpeed = 0.1f; // Speed of the sprite animation
 
     [Header("State")]
-    [SerializeField] private bool isPass = false;   // Whether the door should open
+    [SerializeField] public bool isPass = false;   // Whether the door should open
     [SerializeField] private string nextScene;       // Name of the scene to load when passing through the door
     private bool previousPassState = false;         // To track if isPass has changed
 
@@ -51,6 +51,12 @@ public class Portal : MonoBehaviour
             transform.localScale = defaultScale; // Reset the scale when the door closes
         }
     }
+
+    public void OpenDoorMethod()
+    {
+        StartCoroutine(OpenDoor());
+    }
+
 
     // Coroutine to handle door opening "animation" by changing sprites and scaling
     private IEnumerator OpenDoor()

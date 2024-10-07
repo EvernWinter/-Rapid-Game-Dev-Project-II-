@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -15,6 +16,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] public bool isLanternTurnOnCorrectly = false;
     [SerializeField] private int lanternCount = 0;
 
+    [SerializeField] public Animator camAnim;
+    [SerializeField] private enum GameManagerCutSceneState { Null, CutScene1, CutScene2 };
+    [SerializeField] private bool isPlayCutSceneOnStart;
+    [SerializeField] private GameManagerCutSceneState cutSceneState;
+    [SerializeField] private bool isCollectedAllGemsOnce = false;
+
+    [SerializeField] private CinemachineBrain cinemachineBrain;
+    [SerializeField] private CameraController cameraController;
+
+    [SerializeField] private GameObject portal;
+
+    private TimeManager timeManager;
+
     void Awake()
     {
         if (instance == null)
@@ -25,18 +39,35 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        CinemachineBrain cinemachineBrain = GetComponent<CinemachineBrain>();
+        CameraController cameraController = GetComponent<CameraController>();
+
+        timeManager = new TimeManager();
     }
     
     // Start is called before the first frame update
     void Start()
     {
-        TimeManager.ResetTime();
+        DisabledCineMachineBrain();
+        timeManager.ResetTime();
     }
 
     // Update is called once per frame
     void Update()
     {
-        TimeManager.Update();
+        timeManager.Update();
+
+        if ((!isCollectedAllGemsOnce && CheckIfAllCrystalCollected()) || (Input.GetKeyDown(KeyCode.P)))
+        {
+            isCollectedAllGemsOnce = true;
+            EnabledCineMachineBrain();
+            cutSceneState = GameManagerCutSceneState.CutScene2;
+            camAnim.SetBool("cutscene2", true);
+            Invoke(nameof(ChangeCutscene), 2f);
+            PlayerController.Instance.IsCutSceneOn = true;
+            portal.GetComponent<Portal>().isPass = true;
+        }
     }
     
     public bool CheckIfHasGemStoneOfType(GemStoneTypeEnum targetType)
@@ -73,7 +104,6 @@ public class GameManager : MonoBehaviour
             {
                 lanternCount = 0;
                 currentLanternIndex = 1;
-                Debug.LogWarning("Wrong Lantern SUIIII");
 
                 foreach(GameObject l in lanterns)
                 {
@@ -85,20 +115,45 @@ public class GameManager : MonoBehaviour
             {
                 lanternCount++;
                 currentLanternIndex++;
-                Debug.LogWarning("Correct Lantern SUIIII");
                 break;
             }
         }
 
         if(lanternCount >= lanterns.Length)
         {
-            Debug.Log("LanternPassed");
             return true;
         }
 
         return false;
     }
 
+    public void EnabledCineMachineBrain()
+    {
+        cinemachineBrain.enabled = true;
+        cameraController.enabled = false;
+    }
+
+    public void DisabledCineMachineBrain()
+    {
+        cameraController.enabled = true;
+        cinemachineBrain.enabled = false;
+    }
+
+    private void ChangeCutscene()
+    {
+        if (cutSceneState == GameManagerCutSceneState.CutScene1)
+        {
+            camAnim.SetBool("cutscene1", false);
+            PlayerController.Instance.IsCutSceneOn = false;
+            Invoke("DisabledCineMachineBrain", 1.5f);
+        }
+        else if (cutSceneState == GameManagerCutSceneState.CutScene2)
+        {
+            camAnim.SetBool("cutscene2", false);
+            PlayerController.Instance.IsCutSceneOn = false;
+            Invoke("DisabledCineMachineBrain", 1.5f);
+        }
+    }
 }
 
 public enum GemStoneTypeEnum
@@ -143,4 +198,5 @@ public class TimeManager
     {
         _timeCount = _maxTime;
     }
+
 }

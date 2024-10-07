@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class LanternPuzzle : MonoBehaviour
 {
-    [SerializeField] private enum CutSceneState { Null, CutScene1};
-    [SerializeField] private bool isPlayCutSceneOnStart;
-    [SerializeField] private CutSceneState cutSceneState;
-    [SerializeField] private Animator camAnim;
-
     [SerializeField] private BoxCollider2D boxCollider2D;
 
     [SerializeField] private List<GameObject> lanternsList;
@@ -20,19 +15,20 @@ public class LanternPuzzle : MonoBehaviour
     [SerializeField] private GameObject gem;
 
     [SerializeField] private GameObject lanternPuzzlePassed;
-    [SerializeField] private CinemachineBrain cinemachineBrain;
-    [SerializeField] private CameraController cameraController;
+
+    [SerializeField] private enum LanternCutSceneState { Null, CutScene1 };
+    [SerializeField] private bool isPlayCutSceneOnStart;
+    [SerializeField] private LanternCutSceneState cutSceneState;
 
 
     private void Awake()
     {
-        CinemachineBrain cinemachineBrain = GetComponent<CinemachineBrain>();
-        CameraController cameraController = GetComponent<CameraController>();
+
     }
 
     void Start()
     {
-        DisabledCineMachineBrain();
+        GameManager.instance.DisabledCineMachineBrain();
         BoxCollider2D boxCollider2D = GetComponent<BoxCollider2D>();
         lanternPuzzlePassed.SetActive(false);
 
@@ -51,9 +47,9 @@ public class LanternPuzzle : MonoBehaviour
         if(GameManager.instance.isLanternTurnOnCorrectly && !isLanternPuzzlePassOnce)
         {
             isLanternPuzzlePassOnce = true;
-            EnabledCineMachineBrain();
-            cutSceneState = CutSceneState.CutScene1;
-            camAnim.SetBool("cutscene1", true);
+            GameManager.instance.EnabledCineMachineBrain();
+            cutSceneState = LanternCutSceneState.CutScene1;
+            GameManager.instance.camAnim.SetBool("cutscene1", true);
             Invoke(nameof(ChangeCutscene), 2f);
             boxCollider2D.enabled = false;
             PlayerController.Instance.IsCutSceneOn = true;
@@ -68,11 +64,11 @@ public class LanternPuzzle : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Cutscene Detect player");
-            if (cutSceneState == CutSceneState.CutScene1)
+            if (cutSceneState == LanternCutSceneState.CutScene1)
             {
                 //boxCollider2D.enabled = false;
-                camAnim.SetBool("cutscene1", true);
-                EnabledCineMachineBrain();
+                GameManager.instance.camAnim.SetBool("cutscene1", true);
+                GameManager.instance.EnabledCineMachineBrain();
                 PlayerController.Instance.IsCutSceneOn = true;
             }
 
@@ -106,23 +102,16 @@ public class LanternPuzzle : MonoBehaviour
 
     private void ChangeCutscene()
     {
-        if (cutSceneState == CutSceneState.CutScene1)
+        if (cutSceneState == LanternCutSceneState.CutScene1)
         {
-            camAnim.SetBool("cutscene1", false);
+            GameManager.instance.camAnim.SetBool("cutscene1", false);
             PlayerController.Instance.IsCutSceneOn = false;
             Invoke("DisabledCineMachineBrain", 1.5f);
         }
     }
 
-    private void EnabledCineMachineBrain()
-    {
-        cinemachineBrain.enabled = true;
-        cameraController.enabled = false;
-    }
-
     private void DisabledCineMachineBrain()
     {
-        cameraController.enabled = true;
-        cinemachineBrain.enabled = false;
+        GameManager.instance.DisabledCineMachineBrain();
     }
 }
