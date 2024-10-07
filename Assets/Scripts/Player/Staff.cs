@@ -13,6 +13,12 @@ public class Staff : MonoBehaviour
     public float minAimDistance = 1f; // Minimum allowed distance for aiming
     public float maxAimDistance = 5f; // Maximum allowed distance for aiming
     
+    [Header("Bullet Animation")]
+    [SerializeField] private Sprite[] startSprites;  // Array of sprites for start animation
+    [SerializeField] private float animationSpeed = 0.1f; // Speed of the sprite animation
+    [SerializeField] private SpriteRenderer wandSpriteRenderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    
     [Header("Pivot Point")]
     [SerializeField] private Transform hipPivot;
 
@@ -27,6 +33,7 @@ public class Staff : MonoBehaviour
     void Start()
     {
         xScale = playerTransform.localScale.x;
+        spriteRenderer = wandSpriteRenderer.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -67,6 +74,18 @@ public class Staff : MonoBehaviour
             Debug.LogWarning("Bullet prefab is missing or destroyed!");
             return;
         }
+
+        // Start the bullet animation
+        StartCoroutine(AnimateStart());
+
+        // Start a coroutine to handle bullet instantiation and movement delay
+        StartCoroutine(InstantiateAndLaunchBullet(bulletPrefab));
+    }
+
+    private IEnumerator InstantiateAndLaunchBullet(GameObject bulletPrefab)
+    {
+        // Delay for 1 second before launching the bullet
+        yield return new WaitForSeconds(0.3f);
 
         // Calculate the shoot direction using the mouse position
         Vector3 shootDirection = (mousePosition - shootPosition.position).normalized;
@@ -118,5 +137,19 @@ public class Staff : MonoBehaviour
             //playerTransform.localScale = new Vector3(-xScale , playerTransform.localScale.y, playerTransform.localScale.z);
             staffPosition.localScale = new Vector3(staffPosition.localScale.x, -Mathf.Abs(staffPosition.localScale.y), staffPosition.localScale.z);
         }
+    }
+    
+    private IEnumerator AnimateStart()
+    {
+        int index = 0;
+
+        // Loop through the start sprites
+        while (index < startSprites.Length)
+        {
+            spriteRenderer.sprite = startSprites[index]; // Set current sprite
+            index++;
+            yield return new WaitForSeconds(animationSpeed); // Wait before changing to the next sprite
+        }
+        spriteRenderer.sprite = null;
     }
 }

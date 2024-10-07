@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float checkRadius;
     
+    
     [Header("Animation")] // Player animation value
     [SerializeField] private AnimationReferenceAsset idle;
 
@@ -54,6 +55,8 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
     }
+    
+    
 
     private void Move()
     {
@@ -89,19 +92,28 @@ public class PlayerController : MonoBehaviour
 
     private Block GetOverlappingBlock()
     {
-        // Use a circle overlap check for the feet
+        // Get all colliders within the check radius at the player's feet
         Collider2D[] colliders = Physics2D.OverlapCircleAll(feet.position, checkRadius);
-    
+        Block overlappingBlock = null;
+
+        foreach (Block block in FindObjectsOfType<Block>())
+        {
+            block.isPlayerStand = false; // Reset to false for all blocks
+        }
+
         foreach (Collider2D collider in colliders)
         {
             Block block = collider.GetComponent<Block>();
             if (block != null)
             {
-                return block; // Return the first overlapping block found
+                block.isPlayerStand = true; // Set true only for the overlapping block
+                overlappingBlock = block; // Store the reference to the block
             }
         }
-        return null; // No overlapping block found
+
+        return overlappingBlock; // Return the overlapping block if any
     }
+    
 
     private void OnDrawGizmos() // Draw Gizmos on feet to check the colliding
     {

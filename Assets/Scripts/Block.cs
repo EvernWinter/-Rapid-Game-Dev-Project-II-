@@ -26,6 +26,8 @@ public class Block : MonoBehaviour
     public float returnDelay = 2f; // Delay before returning to normal physics in DelayedReturn mode
     public float followSpeed = 5f; // Adjustable speed to control how fast the block follows the mouse
     public int blockIndex = 0;
+    public bool isPlayerStand = true;
+    public bool isClosing = true;
 
     private Camera cam;
     private Rigidbody2D rb;
@@ -43,7 +45,7 @@ public class Block : MonoBehaviour
 
     protected  virtual void Update()
     {
-        if (Input.GetMouseButtonDown(1)) // Right-click to pick up
+        if (Input.GetMouseButtonDown(1) && !isPlayerStand && !isFrozen) // Right-click to pick up
         {
             // Cast a ray from the mouse position to check if the block is clicked
             Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -62,6 +64,7 @@ public class Block : MonoBehaviour
                 StopAllCoroutines(); // Stop any return delay if it's active
             }
         }
+        
 
         if (Input.GetMouseButtonUp(1)) // Release right-click
         {
@@ -111,6 +114,13 @@ public class Block : MonoBehaviour
             // Apply random rotation upon collision to give a more natural levitating feel
             float randomRotation = Random.Range(-rotationIntensity, rotationIntensity);
             rb.AddTorque(randomRotation);
+        }
+        
+        // Check if the colliding object is the player
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            FreezeBlock(); // Freeze the block if colliding with the player
+            isPickedUp = false; // Set picked up to false when the block is frozen
         }
     }
 

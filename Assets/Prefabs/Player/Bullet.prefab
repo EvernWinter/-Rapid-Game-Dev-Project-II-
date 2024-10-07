@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.20953897, y: -1.4645238, z: 0}
-  m_LocalScale: {x: 0.6375, y: 0.2375, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1539097907
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -130,7 +130,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.5, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &8710074186808533872
 Rigidbody2D:
@@ -171,3 +171,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15d32ab7fce9ab948898cacc2bf12f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startSprites:
+  - {fileID: 21300000, guid: 26306298c08beec41805d6c9d028918d, type: 3}
+  - {fileID: 21300000, guid: 7de0f6aa3e060184d9ee121caa5579a7, type: 3}
+  - {fileID: 21300000, guid: d8ebd9ee8b94c7e46b4b253f0bf1f717, type: 3}
+  - {fileID: 21300000, guid: a08c4ddffd4ac714f944f6c2724c657e, type: 3}
+  - {fileID: 21300000, guid: 9c3777a5de36222448062e31ba1211c2, type: 3}
+  flyingSprites:
+  - {fileID: 21300000, guid: a2ecc2caf99455548ace478007f79785, type: 3}
+  - {fileID: 21300000, guid: b7fd991df6783a4468ec87d49f86d93e, type: 3}
+  - {fileID: 21300000, guid: 3ea7ef108fed6b84198ad1d48757e703, type: 3}
+  - {fileID: 21300000, guid: a93b4a9e85ab1b849b24f0e491cd67a3, type: 3}
+  hitSprites:
+  - {fileID: 21300000, guid: 458359ac5e0520641afa55bd1abda2c8, type: 3}
+  - {fileID: 21300000, guid: 108b5245280741443a02b6616dd12965, type: 3}
+  - {fileID: 21300000, guid: 27d7b857d7c4bb74eb10f11d9fe78bee, type: 3}
+  - {fileID: 21300000, guid: 09295fb919f47ca4b9d0db73462233a2, type: 3}
+  - {fileID: 21300000, guid: 6cf543ccc7951354e853581de21fca23, type: 3}
+  - {fileID: 21300000, guid: 9d0dcceecb4d9014e89779395a4f0271, type: 3}
+  - {fileID: 21300000, guid: 61d4aa66f7baa164ea66a49ff9c3733c, type: 3}
+  - {fileID: 21300000, guid: d75e178194b1368499fd0eedb2b26223, type: 3}
+  - {fileID: 21300000, guid: 3216cd996eec5944db391f08cbe595be, type: 3}
+  animationSpeed: 0.1
+  bulletSpeed: 5

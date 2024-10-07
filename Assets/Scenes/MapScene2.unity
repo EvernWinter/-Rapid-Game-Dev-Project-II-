@@ -1321,6 +1321,8 @@ MonoBehaviour:
   returnDelay: 2
   followSpeed: 5
   blockIndex: 0
+  isPlayerStand: 1
+  isClosing: 1
 --- !u!212 &388170539
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -37091,10 +37093,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet
       objectReference: {fileID: 0}
-    - target: {fileID: 2596817837733934752, guid: c6d7792933301144b87569b789bb39e0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -37156,6 +37154,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5704724037507981370, guid: 6d1390e7a92fbd84784cfa4b1e1c21f6, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -3912631616272945981, guid: 6d1390e7a92fbd84784cfa4b1e1c21f6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
