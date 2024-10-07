@@ -321,19 +321,16 @@ MonoBehaviour:
   lanternSound: {fileID: 3172299342545610491}
   fireImpactSound: {fileID: 948526566286512437}
   player_JumpSound: {fileID: 7392320024658469992}
+  player_JumpSoundClips:
+  - {fileID: 8300000, guid: fffb9d3d1fc29dd48ad136fe80c83a38, type: 3}
+  - {fileID: 8300000, guid: 7051dfc37b5ffbb4498f2135a55e9648, type: 3}
+  - {fileID: 8300000, guid: 43b09ff48daac5b469e376e03cc15777, type: 3}
   player_FootStepSound: {fileID: 5788705816046760151}
   player_HurtSound: {fileID: 1250347115502296525}
   player_HurtSoundClips:
-  - {fileID: 8300000, guid: a73359ecbd512b643871b7d3199e1dbf, type: 3}
-  - {fileID: 8300000, guid: d378ac4e21a608547bbdd4d8516c94d3, type: 3}
-  - {fileID: 8300000, guid: 08e9fe885684ad44a8e42492ad44be28, type: 3}
-  - {fileID: 8300000, guid: b8afca683bf43c94794437cac513524d, type: 3}
-  - {fileID: 8300000, guid: c999b3cf443a08748aea9bcacd571a50, type: 3}
-  - {fileID: 8300000, guid: c2cb6b3af9f68904586cf598c7eaaa77, type: 3}
-  - {fileID: 8300000, guid: 286f590e2c1f0304998b67f91a41528a, type: 3}
-  - {fileID: 8300000, guid: 814a2a0519320414ea69bcc10d7c56f3, type: 3}
-  - {fileID: 8300000, guid: 3823ec827abde8e4fa695d6d4947e14e, type: 3}
-  - {fileID: 8300000, guid: 633c893fa921fa5418b609ee8fbe90b4, type: 3}
+  - {fileID: 8300000, guid: 473ec72ed51e16448a12b523277bb9a8, type: 3}
+  - {fileID: 8300000, guid: 32b548d5725d7fa43819a554915c122e, type: 3}
+  - {fileID: 8300000, guid: 59df7b0451885bd4cb0ed2ad2804047c, type: 3}
   clickingUISound: {fileID: 3327559256719545174}
   collectKeyItemSound: {fileID: 3072118626238913032}
   gameWinSound: {fileID: 7966918441494347081}

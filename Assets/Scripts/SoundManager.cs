@@ -12,6 +12,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource fireImpactSound;
 
     [SerializeField] private AudioSource player_JumpSound;
+    [SerializeField] private AudioClip[] player_JumpSoundClips;
     [SerializeField] private AudioSource player_FootStepSound;
     [SerializeField] private AudioSource player_HurtSound;
     [SerializeField] private AudioClip[] player_HurtSoundClips;
@@ -51,6 +52,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayerJumpSound()
     {
+        player_JumpSound.clip = player_JumpSoundClips[Random.Range(0, player_JumpSoundClips.Length)];
         PlaySound(player_JumpSound);
     }
 
