@@ -23,6 +23,7 @@ public class Lantern : MonoBehaviour
 
     public void LanternOn()
     {
+        SoundManager.Instance.LanternSound();
         lanternOn.SetActive(true);
         lanternOff.SetActive(false);
         isLanternOn = true;
@@ -30,6 +31,7 @@ public class Lantern : MonoBehaviour
 
     public void LanternOff()
     {
+        SoundManager.Instance.LanternSound();
         lanternOff.SetActive(true);
         lanternOn.SetActive(false);
         isLanternOn = false;

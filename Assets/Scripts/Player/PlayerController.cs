@@ -77,7 +77,17 @@ public class PlayerController : MonoBehaviour
 
         if (isOnGround && Input.GetButtonDown("Jump") && !isJumping)
         {
+            SoundManager.Instance.PlayerJumpSound();
             StartCoroutine(TriggerJump());
+        }
+
+        if(isOnGround && movementInput != 0)
+        {
+            SoundManager.Instance.PlayerFootStepSound(true);
+        }
+        else
+        {
+            SoundManager.Instance.PlayerFootStepSound(false);
         }
     }
 

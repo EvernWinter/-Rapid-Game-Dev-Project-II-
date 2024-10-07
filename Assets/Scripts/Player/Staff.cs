@@ -45,6 +45,7 @@ public class Staff : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1") && Time.time >= nextShootTime) // Replace "Fire1" with the input button for shooting
         {
+            SoundManager.Instance.UseStaffFireSound();
             Shoot(bullet);
             nextShootTime = Time.time + shootCooldown;
         }

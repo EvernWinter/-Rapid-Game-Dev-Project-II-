@@ -62,6 +62,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Lantern") || other.CompareTag("Ground"))
         {
+            SoundManager.Instance.FireImpactSound();
             isHit = true; // Set the hit flag to true
             StartCoroutine(AnimateHit());
         }
