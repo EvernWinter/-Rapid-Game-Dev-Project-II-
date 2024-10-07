@@ -12,7 +12,10 @@ public class Staff : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     public float minAimDistance = 1f; // Minimum allowed distance for aiming
     public float maxAimDistance = 5f; // Maximum allowed distance for aiming
- 
+    
+    [Header("Pivot Point")]
+    [SerializeField] private Transform hipPivot;
+
     [Header("Bullet Property")] 
     [SerializeField] private GameObject bullet;
     private float shootCooldown = 1f; // Cooldown
@@ -31,7 +34,7 @@ public class Staff : MonoBehaviour
     {
         FaceTargetDirection();
         UpdateAimTransform();
-        RotateStaffTowardsMouse();
+        RotateStaffAroundHip();
 
         if (Input.GetButtonDown("Fire1") && Time.time >= nextShootTime) // Replace "Fire1" with the input button for shooting
         {
@@ -41,21 +44,22 @@ public class Staff : MonoBehaviour
         Debug.DrawLine(shootPosition.position, mousePosition, Color.red);
     }
 
-    private void RotateStaffTowardsMouse()
+    private void RotateStaffAroundHip()
     {
-        // Get mouse position in world coordinates
+        // Get the mouse position in world coordinates
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0; // Ensure mouse position is in 2D plane
 
-        // Calculate direction from the shoot position to the mouse
-        aimDirection = (mousePosition - shootPosition.position).normalized;
+        // Calculate direction from the hip to the mouse
+        aimDirection = (mousePosition - hipPivot.position).normalized;
 
-        // Calculate the rotation angle in degrees
+        // Calculate the angle in degrees to rotate the wand
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 
-        // Apply rotation to the staff transform
-        staffPosition.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        // Apply rotation around the player's hip (pivot point)
+        staffPosition.RotateAround(hipPivot.position, Vector3.forward, angle - staffPosition.eulerAngles.z);
     }
+    
     private void Shoot(GameObject bulletPrefab)
     {
         if (bulletPrefab == null) 
