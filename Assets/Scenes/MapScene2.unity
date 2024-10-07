@@ -1322,7 +1322,7 @@ MonoBehaviour:
   followSpeed: 5
   blockIndex: 0
   isPlayerStand: 1
-  isClosing: 1
+  isFrozen: 0
 --- !u!212 &388170539
 SpriteRenderer:
   m_ObjectHideFlags: 0

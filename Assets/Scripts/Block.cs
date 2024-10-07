@@ -26,13 +26,13 @@ public class Block : MonoBehaviour
     public float returnDelay = 2f; // Delay before returning to normal physics in DelayedReturn mode
     public float followSpeed = 5f; // Adjustable speed to control how fast the block follows the mouse
     public int blockIndex = 0;
-    public bool isPlayerStand = true;
-    public bool isClosing = true;
+    
 
     private Camera cam;
     private Rigidbody2D rb;
     private bool isPickedUp = false;
-    private bool isFrozen = false;
+    [SerializeField] public bool isPlayerStand = false;
+    [SerializeField] public bool isFrozen = false;
     
 
 
@@ -104,6 +104,8 @@ public class Block : MonoBehaviour
             rb.velocity = Vector2.zero;
             rb.angularVelocity = 0;
         }
+
+        UnFreezeBlock();
     }
 
     // When the block collides with something, apply some rotation if it's picked up
@@ -119,10 +121,24 @@ public class Block : MonoBehaviour
         // Check if the colliding object is the player
         if (collision.gameObject.CompareTag("Player"))
         {
+            ClosingToPlayer(true);
+        }
+    }
+
+    public void ClosingToPlayer(bool isTrue = false)
+    {
+        if (isTrue)
+        {
             FreezeBlock(); // Freeze the block if colliding with the player
             isPickedUp = false; // Set picked up to false when the block is frozen
         }
+        else
+        {
+            isPickedUp = true;
+            isFrozen = false;
+        }
     }
+    
 
     // Freeze the block's movement but still allow collisions
     public void FreezeBlock()
@@ -135,6 +151,21 @@ public class Block : MonoBehaviour
             rb.gravityScale = 0; // Disable gravity
             rb.isKinematic = true; // Set to kinematic, but still allow collisions
         }
+    }
+    
+    public void UnFreezeBlock()
+    {
+        
+        if (isFrozen && !isPlayerStand)
+        {
+            StartCoroutine(ReturnToNormalAfterDelay());
+        }
+        else if (!isFrozen && isPlayerStand)
+        {
+            FreezeBlock();
+        }
+        
+        
     }
 
     // Return the block to normal physics after a delay

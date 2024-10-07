@@ -98,7 +98,8 @@ public class PlayerController : MonoBehaviour
 
         foreach (Block block in FindObjectsOfType<Block>())
         {
-            block.isPlayerStand = false; // Reset to false for all blocks
+            block.isPlayerStand = false;
+            //block.UnFreezeBlock(); // Reset to false for all blocks
         }
 
         foreach (Collider2D collider in colliders)
@@ -113,6 +114,8 @@ public class PlayerController : MonoBehaviour
 
         return overlappingBlock; // Return the overlapping block if any
     }
+
+
     
 
     private void OnDrawGizmos() // Draw Gizmos on feet to check the colliding
