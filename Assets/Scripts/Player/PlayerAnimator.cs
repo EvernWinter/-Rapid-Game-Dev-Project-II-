@@ -57,7 +57,6 @@ public class PlayerAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         if (currentAnimation == deathAnimation.name)
         {
             return;
