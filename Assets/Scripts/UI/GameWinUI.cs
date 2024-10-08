@@ -16,7 +16,7 @@ public class GameWinUI : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.KeypadEnter) && isGameWin)
+        if(Input.GetKeyDown(KeyCode.Escape) && isGameWin)
         {
             SceneManager.LoadScene("Mainmenu");
         }
