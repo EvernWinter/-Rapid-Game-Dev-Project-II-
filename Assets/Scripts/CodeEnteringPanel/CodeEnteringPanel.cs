@@ -76,7 +76,7 @@ public class CodeEnteringPanel : MonoBehaviour
         }
 
         // Highlight the currently selected box
-        _inputCodeBoxes[_currentlyTyping].Highlight();
+        //_inputCodeBoxes[_currentlyTyping].Highlight();
     }
 
 

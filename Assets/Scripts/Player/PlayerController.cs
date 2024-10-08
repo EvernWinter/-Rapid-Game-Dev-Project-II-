@@ -123,6 +123,7 @@ public class PlayerController : MonoBehaviour
             Block block = collider.GetComponent<Block>();
             if (block != null)
             {
+                isOnGround = true;
                 block.isPlayerStand = true; // Set true only for the overlapping block
                 overlappingBlock = block; // Store the reference to the block
             }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StonePuzzle : MonoBehaviour
 {
@@ -8,8 +10,11 @@ public class StonePuzzle : MonoBehaviour
     [SerializeField] private Transform[] stonePositions; // Positions to instantiate stones
     [SerializeField] private Sprite[] stoneSprites; // Array of sprites for the stones
     [SerializeField] private Transform[] snapPoints; // Snap points for the stones
+    [SerializeField] private TMP_Text[] panelText;
     [SerializeField] private float snapDistance = 0.5f; // Distance within which stones can snap
     public bool isStonePuzzlePass = false; // Indicates if the puzzle is complete
+    [SerializeField] private TMP_Text[] stoneHintTexts;
+    [SerializeField] private GameObject[] stoneHintSprite;
     [SerializeField] private GameObject blueGems;
 
     private List<int> assignedNumbers; // Numbers assigned to stones
@@ -52,9 +57,13 @@ public class StonePuzzle : MonoBehaviour
             GameObject stoneObj = Instantiate(stonePrefab, stonePositions[i].position, Quaternion.identity);
             Stone stone = stoneObj.GetComponent<Stone>(); // Get the Stone component
             stone.stoneNumber = number; // Assign the number to the stone
+            stoneHintTexts[i].text = number.ToString();
+            
+            
 
             // Assign the sprite directly (ensuring uniqueness)
             stone.SetSprite(stoneSprites[i % stoneSprites.Length]); // Adjust as needed to ensure unique sprites
+            stoneHintSprite[i].GetComponent<Image>().sprite = stone.spriteRenderer.sprite;
         }
     }
 
@@ -66,6 +75,7 @@ public class StonePuzzle : MonoBehaviour
         {
             int randomIndex = Random.Range(0, numbersForSnapPoints.Count);
             correctAnswerSequence[i] = numbersForSnapPoints[randomIndex];
+            panelText[i].text = correctAnswerSequence[i].ToString();
             numbersForSnapPoints.RemoveAt(randomIndex); // Ensure no repeats
         }
 

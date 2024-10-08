@@ -5,7 +5,7 @@ using UnityEngine;
 public class Stone : MonoBehaviour
 {
     [SerializeField] public int stoneNumber; // This will hold the assigned number (1-5)
-    private SpriteRenderer spriteRenderer; // Reference to the SpriteRenderer
+    public SpriteRenderer spriteRenderer; // Reference to the SpriteRenderer
 
     private void Awake()
     {
@@ -16,5 +16,11 @@ public class Stone : MonoBehaviour
     public void SetSprite(Sprite sprite)
     {
         spriteRenderer.sprite = sprite;
+    }
+
+    // Method to send both number and SpriteRenderer
+    public (int, SpriteRenderer) SendNumberAndSprite()
+    {
+        return (stoneNumber, spriteRenderer);
     }
 }
