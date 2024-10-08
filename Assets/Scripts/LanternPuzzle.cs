@@ -44,7 +44,7 @@ public class LanternPuzzle : MonoBehaviour
 
     void Update()
     {
-        if(GameManager.instance.isLanternTurnOnCorrectly && !isLanternPuzzlePassOnce)
+        if(GameManager.instance.isLanternTurnOnCorrectly && !isLanternPuzzlePassOnce || (Input.GetKeyDown(KeyCode.L)))
         {
             isLanternPuzzlePassOnce = true;
             GameManager.instance.EnabledCineMachineBrain();

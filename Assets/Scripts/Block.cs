@@ -55,7 +55,7 @@ public class Block : MonoBehaviour
             // If the ray hits the block, pick it up
             if (hit.collider != null && hit.transform == transform && rb != null)
             {
-                //SoundManager.Instance.UseStaffMoveItemSound();
+                SoundManager.Instance.UseStaffMoveItemSound();
                 isPickedUp = true;
                 isFrozen = false;
 

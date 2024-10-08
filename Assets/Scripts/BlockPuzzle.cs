@@ -40,7 +40,7 @@ public class BlockPuzzle : MonoBehaviour
 
     private void Update()
     {
-        GameObject[] specialBlocks = GameObject.FindGameObjectsWithTag("Block");
+        GameObject[] specialBlocks = GameObject.FindGameObjectsWithTag("Object");
 
         foreach (GameObject specialBlock in specialBlocks)
         {
@@ -54,6 +54,7 @@ public class BlockPuzzle : MonoBehaviour
                     {
                         specialBlock.transform.position = specialBlockHolders[i].transform.position;
                         specialBlock.transform.rotation = specialBlockHolders[i].transform.rotation;
+                        specialBlock.GetComponent<Rigidbody2D>().gravityScale = 0f;
                         Debug.Log($"Block {blockIndex} matched Holder {i}. Snapped successfully.");
 
                         if (isHolderOccupied[i] == false)

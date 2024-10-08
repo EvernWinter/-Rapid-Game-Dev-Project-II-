@@ -62,7 +62,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Lantern") || other.CompareTag("Ground") || other.CompareTag("Object") || other.CompareTag("Stone"))
         {
-            //SoundManager.Instance.FireImpactSound();
+            SoundManager.Instance.FireImpactSound();
             isHit = true; // Set the hit flag to true
             StartCoroutine(AnimateHit());
         }

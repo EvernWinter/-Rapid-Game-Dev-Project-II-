@@ -43,6 +43,7 @@ public class Gems : MonoBehaviour
 
     public void PuzzlePassed()
     {
+        drop = true;
         puzzlePassed = true;
         if (gemCollider != null)
         {
@@ -60,7 +61,8 @@ public class Gems : MonoBehaviour
             float step = dropSpeed * Time.deltaTime;
 
             // Move the gem towards the drop position
-            transform.position = Vector3.MoveTowards(transform.position, dropPosition.position, step);
+            //transform.position = Vector3.MoveTowards(transform.position, dropPosition.position, step)
+            transform.position = Vector3.MoveTowards(transform.position, dropPosition.position, 0.07f);
 
             // Check if the gem has reached the drop position
             if (Vector3.Distance(transform.position, dropPosition.position) < 0.01f)
@@ -100,6 +102,7 @@ public class Gems : MonoBehaviour
             // Handle gem interaction with player, e.g., making it disappear
             gemRenderer.enabled = false; // Make the gem disappear visually
             Destroy(gameObject, 1f); // Optionally destroy the gem after 1 second
+            Debug.Log("Gem Collected");
         }
         else if (other.CompareTag("Ground")) // Check for ground collision
         {
