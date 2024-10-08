@@ -50,7 +50,7 @@ public class Staff : MonoBehaviour
         RotateStaffAroundHip();
 
         // Check for shooting input and manage cooldown
-        if (Input.GetButtonDown("Fire1") && Time.time >= nextShootTime && isCollectedGems)
+        if (Input.GetButtonDown("Fire1") && Time.time >= nextShootTime)
         {
             SoundManager.Instance.UseStaffFireSound();
             Shoot(bullet);

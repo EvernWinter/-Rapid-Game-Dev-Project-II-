@@ -36158,6 +36158,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8122b0a48502dd49a4818c47d5ccfec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCollectGemStone_Red: 0
+  isCollectGemStone_Blue: 0
+  isCollectGemStone_Green: 0
   currentLanternIndex: 1
   isLanternTurnOnCorrectly: 0
   lanternCount: 0

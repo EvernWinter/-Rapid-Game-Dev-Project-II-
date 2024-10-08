@@ -8,11 +8,15 @@ public class ChatBubble : MonoBehaviour
 {
     [SerializeField] private Text chatText;
     public List<string> chatString;
+    [SerializeField] private Font customFont;
     private string currentText = "";
 
     void Start()
     {
-        
+        if (customFont != null)
+        {
+            chatText.font = customFont; // Set the font to the custom one
+        }
     }
 
     void Update()

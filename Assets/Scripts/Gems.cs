@@ -130,6 +130,7 @@ public class Gems : MonoBehaviour
             // Handle gem interaction with player, e.g., making it disappear
             gemRenderer.enabled = false; // Make the gem disappear visually
             CollectGem();
+            Block.CollectGem(gemType);
             Destroy(gameObject, 1f); // Optionally destroy the gem after 1 second
             Debug.Log("Gem Collected");
         }

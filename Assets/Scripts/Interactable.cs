@@ -7,7 +7,7 @@ public class Interactable : MonoBehaviour
     [SerializeField] private GameObject interactText;
     [SerializeField] private GameObject interactPanel;
 
-    [SerializeField] private bool canInteract;
+    [SerializeField] private bool canInteract = false;
     // Start is called before the first frame update
     void Start()
     {

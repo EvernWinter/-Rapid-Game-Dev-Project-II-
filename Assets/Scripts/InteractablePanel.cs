@@ -21,7 +21,7 @@ public class InteractablePanel : MonoBehaviour
     }
     public void Update()
     {
-        textEscape.color = new Color(0f, 0f, 0f, alpha);
+        textEscape.color = new Color(255f, 255f, 255f, alpha);
 
         if (isShowingText)
         {
@@ -56,14 +56,14 @@ public class InteractablePanel : MonoBehaviour
     // Make sure this method is public
     public void Show()
     {
-        _panel.SetActive(true);
+        this.gameObject.SetActive(true);
         isShowingText = true;
     }
 
     // Make sure this method is public
     public void Hide()
     {
-        _panel.SetActive(false);
+        this.gameObject.SetActive(false);
         isShowingText = false;
     }
 

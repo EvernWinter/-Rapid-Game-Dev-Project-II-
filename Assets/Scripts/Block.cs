@@ -34,6 +34,8 @@ public class Block : MonoBehaviour
     private bool isPickedUp = false;
     [SerializeField] public bool isPlayerStand = false;
     [SerializeField] public bool isFrozen = false;
+    [SerializeField] private static bool isCollectedGreenGem = false;
+    [SerializeField] private static bool isCollectedRedGems = false;
     
 
 
@@ -46,7 +48,7 @@ public class Block : MonoBehaviour
 
     protected  virtual void Update()
     {
-        if (Input.GetMouseButtonDown(1) && !isPlayerStand && !isFrozen) // Right-click to pick up
+        if (Input.GetMouseButtonDown(1) && !isPlayerStand && !isFrozen && isCollectedRedGems) // Right-click to pick up
         {
             // Cast a ray from the mouse position to check if the block is clicked
             Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -66,9 +68,15 @@ public class Block : MonoBehaviour
                 StopAllCoroutines(); // Stop any return delay if it's active
             }
         }
-        
 
-        if (Input.GetMouseButtonUp(1)) // Release right-click
+        if (!isCollectedGreenGem)
+        {
+            rb.gravityScale = 1;
+            rb.isKinematic = false;
+        }
+
+
+        if (Input.GetMouseButtonUp(1) && isCollectedRedGems) // Release right-click
         {
             isPickedUp = false;
 
@@ -145,43 +153,78 @@ public class Block : MonoBehaviour
     // Freeze the block's movement but still allow collisions
     public void FreezeBlock()
     {
-        isFrozen = true;
-        if (rb != null)
+        // Only freeze the block if gems have been collected
+        if (isCollectedGreenGem)
         {
-            rb.velocity = Vector2.zero;
-            rb.angularVelocity = 0;
-            rb.gravityScale = 0; // Disable gravity
-            rb.isKinematic = true; // Set to kinematic, but still allow collisions
+            isFrozen = true;
+            if (rb != null)
+            {
+                rb.velocity = Vector2.zero;
+                rb.angularVelocity = 0;
+                rb.gravityScale = 0; // Disable gravity
+                rb.isKinematic = true; // Set to kinematic, but still allow collisions
+            }
+        }
+        else
+        {
+            // If gems are not collected, set isFrozen to false
+            isFrozen = false;
+        }
+    }
+
+    public void UnFreezeBlock()
+    {
+        // Only unfreeze or freeze based on player stand status if gems have been collected
+        if (isCollectedGreenGem)
+        {
+            if (isFrozen && !isPlayerStand)
+            {
+                StartCoroutine(ReturnToNormalAfterDelay());
+            }
+            else if (!isFrozen && isPlayerStand)
+            {
+                FreezeBlock();
+            }
+        }
+        else
+        {
+            // If gems are not collected, block should not freeze/unfreeze
+            isFrozen = false;
+        }
+    }
+
+// Return the block to normal physics after a delay
+    IEnumerator ReturnToNormalAfterDelay()
+    {
+        // Only proceed if gems have been collected
+        if (isCollectedGreenGem)
+        {
+            FreezeBlock(); // Freeze the block while waiting for the delay
+            yield return new WaitForSeconds(returnDelay); // Wait for the specified delay
+
+            // Unfreeze the block and restore normal physics
+            if (rb != null)
+            {
+                isFrozen = false;
+                rb.gravityScale = 1; // Re-enable gravity
+                rb.isKinematic = false; // Allow the block to be affected by physics again
+            }
         }
     }
     
-    public void UnFreezeBlock()
+    public static void CollectGem(GemStoneTypeEnum gemType)
     {
-        
-        if (isFrozen && !isPlayerStand)
+        if (gemType == GemStoneTypeEnum.Green)
         {
-            StartCoroutine(ReturnToNormalAfterDelay());
+            isCollectedGreenGem = true; // or set to whatever condition is necessary
+            Debug.Log("Gems collected! Block can now be Freeze.");
         }
-        else if (!isFrozen && isPlayerStand)
+        if (gemType == GemStoneTypeEnum.Red)
         {
-            FreezeBlock();
+            isCollectedRedGems = true; // or set to whatever condition is necessary
+            Debug.Log("Gems collected! Block can now be manipulated.");
         }
         
         
-    }
-
-    // Return the block to normal physics after a delay
-    IEnumerator ReturnToNormalAfterDelay()
-    {
-        FreezeBlock(); // Freeze the block while waiting for the delay
-        yield return new WaitForSeconds(returnDelay); // Wait for the specified delay
-
-        // Unfreeze the block and restore normal physics
-        if (rb != null)
-        {
-            isFrozen = false;
-            rb.gravityScale = 1; // Re-enable gravity
-            rb.isKinematic = false; // Allow the block to be affected by physics again
-        }
     }
 }
