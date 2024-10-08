@@ -20,6 +20,10 @@ public class Portal : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;  // Reference to the SpriteRenderer
     private Vector3 defaultScale;            // Store the default scale
+    [SerializeField] private bool isThisPassable = true; 
+    [SerializeField] private bool isThisPortalWin = false;
+    [SerializeField] private Vector3 teleportPosition;
+    [SerializeField] private GameObject player;
 
     // Start is called before the first frame update
     void Start()
@@ -101,10 +105,14 @@ public class Portal : MonoBehaviour
     // Trigger the scene transition when the player enters the door's trigger zone
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (isPass && other.CompareTag("Player")) // Ensure the object is the player
+        if (isPass && other.CompareTag("Player") && isThisPassable && !isThisPortalWin) // Ensure the object is the player
         {
             // Load the next scene specified by nextScene
-            
+            player.transform.position = teleportPosition;
+        }
+        else if (isPass && other.CompareTag("Player") && isThisPassable && isThisPortalWin) // Ensure the object is the player
+        {
+            Debug.Log("SUIIIIIIIIIIIIIIII You WIN");
         }
     }
     

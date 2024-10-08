@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int lanternCount = 0;
 
     [SerializeField] public Animator camAnim;
-    [SerializeField] private enum GameManagerCutSceneState { Null, CutScene1, CutScene2 };
+    [SerializeField] private enum GameManagerCutSceneState { Null, CutScene1, CutScene2, CutScene3, CutScene4, CutScene5 };
     [SerializeField] private bool isPlayCutSceneOnStart;
     [SerializeField] private GameManagerCutSceneState cutSceneState;
     [SerializeField] private bool isCollectedAllGemsOnce = false;
@@ -64,16 +64,50 @@ public class GameManager : MonoBehaviour
         if ((!isCollectedAllGemsOnce && CheckIfAllCrystalCollected()) || (Input.GetKeyDown(KeyCode.P)))
         {
             isCollectedAllGemsOnce = true;
-            EnabledCineMachineBrain();
-            cutSceneState = GameManagerCutSceneState.CutScene2;
-            camAnim.SetBool("cutscene2", true);
-            Invoke(nameof(ChangeCutscene), 2f);
-            PlayerController.Instance.IsCutSceneOn = true;
+            SetCutSceneState(4);
             portal.GetComponent<Portal>().isPass = true;
-            
+            portal.GetComponent<Portal>().OpenDoorMethod();
+
         }
     }
     
+    public void SetCutSceneState(int cutSceneIndex)
+    {
+        EnabledCineMachineBrain();
+
+        switch (cutSceneIndex)
+        {
+            case 1:
+                cutSceneState = GameManagerCutSceneState.CutScene1;
+                camAnim.SetBool("cutscene1", true);
+                break;
+
+            case 2:
+                cutSceneState = GameManagerCutSceneState.CutScene2;
+                camAnim.SetBool("cutscene2", true);
+                break;
+
+            case 3:
+                cutSceneState = GameManagerCutSceneState.CutScene3;
+                camAnim.SetBool("cutscene3", true);
+                break;
+
+            case 4:
+                cutSceneState = GameManagerCutSceneState.CutScene4;
+                camAnim.SetBool("cutscene4", true);
+                break;
+
+            case 5:
+                cutSceneState = GameManagerCutSceneState.CutScene5;
+                camAnim.SetBool("cutscene5", true);
+                break;
+        }
+
+        
+        Invoke(nameof(ChangeCutscene), 2f);
+        PlayerController.Instance.IsCutSceneOn = true;
+    }
+
     public bool CheckIfHasGemStoneOfType(GemStoneTypeEnum targetType)
     {
         foreach (var gem in _gemStones)
@@ -151,18 +185,35 @@ public class GameManager : MonoBehaviour
 
     private void ChangeCutscene()
     {
-        if (cutSceneState == GameManagerCutSceneState.CutScene1)
+
+        PlayerController.Instance.IsCutSceneOn = false;
+        Invoke("DisabledCineMachineBrain", 1.5f);
+        camAnim.SetBool("cutscene1", false);
+        camAnim.SetBool("cutscene2", false);
+        camAnim.SetBool("cutscene3", false);
+        camAnim.SetBool("cutscene4", false);
+        camAnim.SetBool("cutscene5", false);
+
+        /*if (cutSceneState == GameManagerCutSceneState.CutScene1)
         {
             camAnim.SetBool("cutscene1", false);
-            PlayerController.Instance.IsCutSceneOn = false;
-            Invoke("DisabledCineMachineBrain", 1.5f);
         }
         else if (cutSceneState == GameManagerCutSceneState.CutScene2)
         {
             camAnim.SetBool("cutscene2", false);
-            PlayerController.Instance.IsCutSceneOn = false;
-            Invoke("DisabledCineMachineBrain", 1.5f);
         }
+        else if (cutSceneState == GameManagerCutSceneState.CutScene3)
+        {
+            camAnim.SetBool("cutscene3", false);
+        }
+        else if (cutSceneState == GameManagerCutSceneState.CutScene4)
+        {
+            camAnim.SetBool("cutscene4", false);
+        }
+        else if (cutSceneState == GameManagerCutSceneState.CutScene5)
+        {
+            camAnim.SetBool("cutscene5", false);
+        }*/
     }
 }
 
