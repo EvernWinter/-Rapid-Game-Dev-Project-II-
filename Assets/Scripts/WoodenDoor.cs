@@ -26,6 +26,8 @@ public class WoodenDoor : MonoBehaviour
     public float closeDelay = 1f;           // Delay before the door starts closing
     public DoorState currentDoorState = DoorState.Closed; // Current state of the door
 
+    [SerializeField] private Gems _targetGem;
+
     private Vector3 closedPosition;         // The starting (closed) position of the door
     private Vector3 openPosition;           // The target (open) position of the door
     private Coroutine doorCoroutine;        // Tracks the door's open/close coroutine
@@ -36,6 +38,29 @@ public class WoodenDoor : MonoBehaviour
         closedPosition = transform.position;
         // Calculate the open position (move the door up by openHeight)
         openPosition = new Vector3(closedPosition.x, closedPosition.y + openHeight, closedPosition.z);
+    }
+
+    private void Update()
+    {
+        if (currentDoorState == DoorState.Closed)
+        {
+            if (doorMode == Mode.CrystalTrigger)
+            {
+                if (_targetGem.puzzlePassed)
+                {
+                    OpenDoor();
+                }
+            }
+
+            if (doorMode == Mode.BlockTrigger)
+            {
+                if (FloatingPlatformSnapper.Instance._isSnapped)
+                {
+                    OpenDoor();
+                }
+                
+            }
+        }
     }
 
     /// <summary>

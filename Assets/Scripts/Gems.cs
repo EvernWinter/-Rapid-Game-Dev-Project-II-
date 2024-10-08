@@ -34,6 +34,11 @@ public class Gems : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            puzzlePassed = true;
+        }
+        
         if (puzzlePassed || Input.GetKeyDown(KeyCode.K))
         {
             if (drop)
