@@ -347,18 +347,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1893491294296777083, guid: 9d51c137eff742945ac4bddf562847ec, type: 3}
-      propertyPath: m_Color.b
-      value: 0.7106918
-      objectReference: {fileID: 0}
-    - target: {fileID: 1893491294296777083, guid: 9d51c137eff742945ac4bddf562847ec, type: 3}
-      propertyPath: m_Color.g
-      value: 0.7106918
-      objectReference: {fileID: 0}
-    - target: {fileID: 1893491294296777083, guid: 9d51c137eff742945ac4bddf562847ec, type: 3}
-      propertyPath: m_Color.r
-      value: 0.7106918
-      objectReference: {fileID: 0}
     - target: {fileID: 2347313652217408629, guid: 9d51c137eff742945ac4bddf562847ec, type: 3}
       propertyPath: m_Name
       value: Mainmenu
@@ -442,54 +430,6 @@ PrefabInstance:
     - target: {fileID: 2404006887276591039, guid: 9d51c137eff742945ac4bddf562847ec, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3826515584301642299, guid: 9d51c137eff742945ac4bddf562847ec, type: 3}
-      propertyPath: m_Color.b
-      value: 0.7106918
-      objectReference: {fileID: 0}
-    - target: {fileID: 3826515584301642299, guid: 9d51c137eff742945ac4bddf562847ec, type: 3}
-      propertyPath: m_Color.g
-      value: 0.7106918
-      objectReference: {fileID: 0}
-    - target: {fileID: 3826515584301642299, guid: 9d51c137eff742945ac4bddf562847ec, type: 3}
-      propertyPath: m_Color.r
-      value: 0.7106918
-      objectReference: {fileID: 0}
-    - target: {fileID: 4066708572059678663, guid: 9d51c137eff742945ac4bddf562847ec, type: 3}
-      propertyPath: m_Alpha
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6013003090085178029, guid: 9d51c137eff742945ac4bddf562847ec, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 8e5d3d821666b6948a405f9efa4dfd7e, type: 3}
-    - target: {fileID: 6013003090085178029, guid: 9d51c137eff742945ac4bddf562847ec, type: 3}
-      propertyPath: m_Color.b
-      value: 0.63522005
-      objectReference: {fileID: 0}
-    - target: {fileID: 6013003090085178029, guid: 9d51c137eff742945ac4bddf562847ec, type: 3}
-      propertyPath: m_Color.g
-      value: 0.63522005
-      objectReference: {fileID: 0}
-    - target: {fileID: 6013003090085178029, guid: 9d51c137eff742945ac4bddf562847ec, type: 3}
-      propertyPath: m_Color.r
-      value: 0.63522005
-      objectReference: {fileID: 0}
-    - target: {fileID: 6583473790464215001, guid: 9d51c137eff742945ac4bddf562847ec, type: 3}
-      propertyPath: m_Text
-      value: One Night Miracle
-      objectReference: {fileID: 0}
-    - target: {fileID: 7044356015074122103, guid: 9d51c137eff742945ac4bddf562847ec, type: 3}
-      propertyPath: m_Color.b
-      value: 0.7106918
-      objectReference: {fileID: 0}
-    - target: {fileID: 7044356015074122103, guid: 9d51c137eff742945ac4bddf562847ec, type: 3}
-      propertyPath: m_Color.g
-      value: 0.7106918
-      objectReference: {fileID: 0}
-    - target: {fileID: 7044356015074122103, guid: 9d51c137eff742945ac4bddf562847ec, type: 3}
-      propertyPath: m_Color.r
-      value: 0.7106918
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
