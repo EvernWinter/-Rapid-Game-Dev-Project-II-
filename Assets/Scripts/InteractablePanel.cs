@@ -66,6 +66,15 @@ public class InteractablePanel : MonoBehaviour
         this.gameObject.SetActive(false);
         isShowingText = false;
     }
+    
+    public void Pause()
+    {
+        
+    }
+    public void UnPause()
+    {
+        
+    }
 
     private IEnumerator BlinkingTextFlashlight()
     {

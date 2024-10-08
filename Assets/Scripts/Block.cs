@@ -36,6 +36,7 @@ public class Block : MonoBehaviour
     [SerializeField] public bool isFrozen = false;
     [SerializeField] private static bool isCollectedGreenGem = false;
     [SerializeField] private static bool isCollectedRedGems = false;
+    private bool cheat = false;
     
 
 
@@ -48,6 +49,13 @@ public class Block : MonoBehaviour
 
     protected  virtual void Update()
     {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            
+            
+            isCollectedGreenGem = true;
+            isCollectedRedGems = true;
+        }
         if (Input.GetMouseButtonDown(1) && !isPlayerStand && !isFrozen && isCollectedRedGems) // Right-click to pick up
         {
             // Cast a ray from the mouse position to check if the block is clicked
@@ -69,7 +77,7 @@ public class Block : MonoBehaviour
             }
         }
 
-        if (!isCollectedGreenGem)
+        if (!isCollectedGreenGem )
         {
             rb.gravityScale = 1;
             rb.isKinematic = false;
@@ -154,7 +162,7 @@ public class Block : MonoBehaviour
     public void FreezeBlock()
     {
         // Only freeze the block if gems have been collected
-        if (isCollectedGreenGem)
+        if (isCollectedGreenGem )
         {
             isFrozen = true;
             if (rb != null)
@@ -175,7 +183,7 @@ public class Block : MonoBehaviour
     public void UnFreezeBlock()
     {
         // Only unfreeze or freeze based on player stand status if gems have been collected
-        if (isCollectedGreenGem)
+        if (isCollectedGreenGem )
         {
             if (isFrozen && !isPlayerStand)
             {
@@ -197,7 +205,7 @@ public class Block : MonoBehaviour
     IEnumerator ReturnToNormalAfterDelay()
     {
         // Only proceed if gems have been collected
-        if (isCollectedGreenGem)
+        if (isCollectedGreenGem )
         {
             FreezeBlock(); // Freeze the block while waiting for the delay
             yield return new WaitForSeconds(returnDelay); // Wait for the specified delay
