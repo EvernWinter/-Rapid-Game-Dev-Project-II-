@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Gems : MonoBehaviour
 {
+    //SerializeField] public enum GemType { Red, Blue , Green};
+    [SerializeField] public GemStoneTypeEnum gemType; 
+
     private Collider2D gemCollider;
     private SpriteRenderer gemRenderer;
     public GameObject cage;
@@ -12,7 +15,7 @@ public class Gems : MonoBehaviour
     [SerializeField] private bool puzzlePassed = false;
     [SerializeField] private bool drop = false;
     [SerializeField] private Transform dropPosition; // Final position to drop to
-    
+       
 
     public float dropSpeed = 1.0f;
     public float fadeSpeed = 1.0f;
@@ -25,12 +28,12 @@ public class Gems : MonoBehaviour
         {
             cageRenderer = cage.GetComponent<SpriteRenderer>(); // Ensure cage is assigned and exists
         }
-        
+        gemCollider.enabled = false;
     }
 
     void Update()
     {
-        if (puzzlePassed)
+        if (puzzlePassed || Input.GetKeyDown(KeyCode.K))
         {
             if (drop)
             {
@@ -43,6 +46,7 @@ public class Gems : MonoBehaviour
 
     public void PuzzlePassed()
     {
+        gemCollider.enabled = true;
         drop = true;
         puzzlePassed = true;
         if (gemCollider != null)
@@ -77,6 +81,24 @@ public class Gems : MonoBehaviour
         }
     }
 
+    private void CollectGem()
+    {
+        switch(gemType)
+        {
+            case GemStoneTypeEnum.Blue:
+                GameManager.instance.isCollectGemStone_Blue = true;
+                break;
+
+            case GemStoneTypeEnum.Red:
+                GameManager.instance.isCollectGemStone_Red = true;
+                break;
+
+            case GemStoneTypeEnum.Green:
+                GameManager.instance.isCollectGemStone_Green = true;
+                break;
+        }
+    }
+
     private void FadeCage()
     {
         // Check if the cageRenderer is null before proceeding
@@ -101,6 +123,7 @@ public class Gems : MonoBehaviour
         {
             // Handle gem interaction with player, e.g., making it disappear
             gemRenderer.enabled = false; // Make the gem disappear visually
+            CollectGem();
             Destroy(gameObject, 1f); // Optionally destroy the gem after 1 second
             Debug.Log("Gem Collected");
         }

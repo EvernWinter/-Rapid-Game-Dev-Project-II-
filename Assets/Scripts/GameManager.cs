@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     [field: SerializeField] public TimeManager TimeManager; 
     
     [SerializeField] private List<GemStone> _gemStones = new List<GemStone>();
+    [SerializeField] public bool isCollectGemStone_Red = false;
+    [SerializeField] public bool isCollectGemStone_Blue = false;
+    [SerializeField] public bool isCollectGemStone_Green = false;
 
     [SerializeField] private int currentLanternIndex = 1;
     [SerializeField] public bool isLanternTurnOnCorrectly = false;
@@ -85,6 +88,12 @@ public class GameManager : MonoBehaviour
     
     public bool CheckIfAllCrystalCollected()
     {
+        if(isCollectGemStone_Blue && isCollectGemStone_Green && isCollectGemStone_Red)
+        {
+            return true;
+        }
+        return false;
+        /*
         foreach (GemStoneTypeEnum type in System.Enum.GetValues(typeof(GemStoneTypeEnum)))
         {
             if (!_gemStones.Exists(g => g.GetGemStoneType() == type))
@@ -92,7 +101,7 @@ public class GameManager : MonoBehaviour
                 return false; // A type is missing
             }
         }
-        return true; // All gemstone types collected
+        return true; // All gemstone types collected*/
     }
 
     public bool CheckIfAllLanternIgnitedCorrectly()
@@ -159,16 +168,18 @@ public class GameManager : MonoBehaviour
 
 public enum GemStoneTypeEnum
 {
-    Fire,
+    Red,
+    Blue,
+    Green
+    /*Fire,
     Water,
-    Wind
+    Wind*/
 }
 
 //Temporary Crystal Class
 public class GemStone
 {
-    [SerializeField] private GemStoneTypeEnum _type;
-    
+    [SerializeField] public GemStoneTypeEnum _type;
     public GemStone(GemStoneTypeEnum type)
     {
         _type = type;
@@ -178,6 +189,8 @@ public class GemStone
     {
         return _type;
     }
+
+
 }
 
 
