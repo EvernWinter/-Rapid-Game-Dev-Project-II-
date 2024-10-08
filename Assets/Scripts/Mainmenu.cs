@@ -86,7 +86,7 @@ public class Mainmenu : MonoBehaviour
 
     private void OnStart()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("MapScene");
     }
     private void OnVideoScene()
     {

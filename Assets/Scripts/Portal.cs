@@ -25,9 +25,16 @@ public class Portal : MonoBehaviour
     [SerializeField] private Vector3 teleportPosition;
     [SerializeField] private GameObject player;
 
+    [SerializeField] private GameObject gameWinUI;
+
     // Start is called before the first frame update
     void Start()
     {
+        if(!gameWinUI)
+        {
+            gameWinUI = GameObject.Find("GameWinUI");
+        }
+        
         spriteRenderer = GetComponent<SpriteRenderer>();
         defaultScale = transform.localScale; // Store the initial scale of the door
         UpdateDoorState(); // Set the initial state of the door
@@ -113,6 +120,7 @@ public class Portal : MonoBehaviour
         else if (isPass && other.CompareTag("Player") && isThisPassable && isThisPortalWin) // Ensure the object is the player
         {
             Debug.Log("SUIIIIIIIIIIIIIIII You WIN");
+            gameWinUI.GetComponent<GameWinUI>().DoFadeGameWinUI();
         }
     }
     
