@@ -22,7 +22,8 @@ public class Interactable : MonoBehaviour
             interactText.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E) && canInteract)
             {
-                interactPanel.SetActive(true);
+                //interactPanel.SetActive(true);
+                interactPanel.GetComponent<InteractablePanel>().Show();
             }
         }
         else

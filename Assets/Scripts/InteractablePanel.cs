@@ -10,6 +10,7 @@ public class InteractablePanel : MonoBehaviour
     public void Show()
     {
         _panel.SetActive(true);
+        
     }
 
     // Make sure this method is public
