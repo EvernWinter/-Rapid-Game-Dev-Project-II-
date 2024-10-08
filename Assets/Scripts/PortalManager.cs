@@ -28,18 +28,18 @@ public class PortalManager : MonoBehaviour
             portals[2].GetComponent<Portal>().OpenDoorMethod();
 
         }
-        else if ((!isCollectBlueGemOnce && GameManager.instance.isCollectGemStone_Blue) || (Input.GetKeyDown(KeyCode.N)))
-        {
-            isCollectBlueGemOnce = true;
-            GameManager.instance.SetCutSceneState(3);
-        }
-        /*else if ((!isCollectGreenGemOnce && GameManager.instance.isCollectGemStone_Green) || (Input.GetKeyDown(KeyCode.M)))
+        else if ((!isCollectGreenGemOnce && GameManager.instance.isCollectGemStone_Green) || (Input.GetKeyDown(KeyCode.N)))
         {
             isCollectGreenGemOnce = true;
+            GameManager.instance.SetCutSceneState(3);
+        }
+        else if ((!isCollectBlueGemOnce && GameManager.instance.isCollectGemStone_Blue) || (Input.GetKeyDown(KeyCode.M)))
+        {
+            isCollectBlueGemOnce = true;
             GameManager.instance.SetCutSceneState(4);
             portals[3].GetComponent<Portal>().isPass = true;
             portals[3].GetComponent<Portal>().OpenDoorMethod();
 
-        }*/
+        }
     }
 }

@@ -97,11 +97,13 @@ public class Gems : MonoBehaviour
 
             case GemStoneTypeEnum.Red:
                 GameManager.instance.isCollectGemStone_Red = true;
+                GameManager.instance.SetIcon(1, "hover");
                 
                 break;
 
             case GemStoneTypeEnum.Green:
                 GameManager.instance.isCollectGemStone_Green = true;
+                GameManager.instance.SetIcon(1, "freeze");
                 break;
         }
     }

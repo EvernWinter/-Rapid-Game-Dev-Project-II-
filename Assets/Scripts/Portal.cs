@@ -54,7 +54,7 @@ public class Portal : MonoBehaviour
     // Update the door's visual state based on isPass
     private void UpdateDoorState()
     {
-        Debug.Log($"isPass: {isPass}, open: {open}");
+        //Debug.Log($"isPass: {isPass}, open: {open}");
         if (isPass && open)
         {
             Debug.Log("Starting Open Door Coroutine");

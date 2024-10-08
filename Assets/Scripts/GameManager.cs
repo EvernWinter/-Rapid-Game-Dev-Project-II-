@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    private bool isPaused = false;
     
     [field: SerializeField] public TimeManager TimeManager; 
     
@@ -29,6 +32,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CameraController cameraController;
 
     [SerializeField] private GameObject portal;
+    [SerializeField] private GameObject pause;
+    [SerializeField] private GameObject howToPlay;
+
+    [SerializeField] public Image shootIcon;
+    [SerializeField] public Image hoverIcon;
+    [SerializeField] public Image freezeIcon;
+    
+    // Black and white versions of each icon
+    [SerializeField] private Sprite shootBlackIcon;
+    [SerializeField] private Sprite shootWhiteIcon;
+    [SerializeField] private Sprite hoverBlackIcon;
+    [SerializeField] private Sprite hoverWhiteIcon;
+    [SerializeField] private Sprite freezeBlackIcon;
+    [SerializeField] private Sprite freezeWhiteIcon;
+    
 
     private TimeManager timeManager;
 
@@ -60,6 +78,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         timeManager.Update();
+        ShowCutScene();
 
         if ((!isCollectedAllGemsOnce && CheckIfAllCrystalCollected()) || (Input.GetKeyDown(KeyCode.P)))
         {
@@ -69,6 +88,20 @@ public class GameManager : MonoBehaviour
             portal.GetComponent<Portal>().OpenDoorMethod();
 
         }
+    }
+
+    public void ShowCutScene()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SetCutSceneState(1);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            SetCutSceneState(5);
+        }
+        
     }
     
     public void SetCutSceneState(int cutSceneIndex)
@@ -214,6 +247,92 @@ public class GameManager : MonoBehaviour
         {
             camAnim.SetBool("cutscene5", false);
         }*/
+    }
+    
+    public void SetIcon(int iconColor, string iconType)
+    {
+        switch (iconType.ToLower())
+        {
+            case "shoot":
+                shootIcon.sprite = (iconColor == 0) ? shootBlackIcon : shootWhiteIcon;
+                break;
+            case "hover":
+                hoverIcon.sprite = (iconColor == 0) ? hoverBlackIcon : hoverWhiteIcon;
+                break;
+            case "freeze":
+                freezeIcon.sprite = (iconColor == 0) ? freezeBlackIcon : freezeWhiteIcon;
+                break;
+            default:
+                Debug.LogWarning("Invalid icon type specified.");
+                break;
+        }
+    }
+
+    public void PauseGame()
+    {
+        if (isPaused)
+        {
+            UnPause();
+        }
+        else
+        {
+            Pause();
+        }
+
+    }
+    public void Pause()
+    {
+        if (!isPaused)
+        {
+            Time.timeScale = 0; // Freeze the game time
+            pause.SetActive(true);
+            isPaused = true;
+            // Optionally, you can show a pause menu here
+            Debug.Log("Game Paused");
+        }
+    }
+
+    public void UnPause()
+    {
+        if (isPaused)
+        {
+            Time.timeScale = 1; // Resume the game time
+            pause.SetActive(false);
+            isPaused = false;
+            // Optionally, you can hide the pause menu here
+            Debug.Log("Game Unpaused");
+        }
+    }
+    
+    public void HowToPlay()
+    {
+        if (!howToPlay.activeInHierarchy)
+        {
+            howToPlay.SetActive(true);
+        }
+        else
+        {
+            howToPlay.SetActive(false);
+        }
+    }
+    
+    public void GoToMainMenu()
+    {
+        // Replace "MainMenu" with the actual name of your main menu scene
+        SceneManager.LoadScene("Mainmenu");
+    }
+
+    // Method to quit the game
+    public void QuitGame()
+    {
+        // If we are in the Unity editor, quit doesn't work, so we log a message
+#if UNITY_EDITOR
+        Debug.Log("Quit Game - In Editor, exiting play mode.");
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        // Quit the application
+        Application.Quit();
+#endif
     }
 }
 

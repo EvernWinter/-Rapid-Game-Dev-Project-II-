@@ -22,7 +22,7 @@ public class GemsUI : MonoBehaviour
         }
         else
         {
-            image_GemRed.color = new Color(1f, 1f, 1f, 0.03f);
+            image_GemRed.color = new Color(1f, 1f, 1f, 0.1f);
         }
 
         if (GameManager.instance.isCollectGemStone_Blue)
@@ -31,7 +31,7 @@ public class GemsUI : MonoBehaviour
         }
         else
         {
-            image_GemBlue.color = new Color(1f, 1f, 1f, 0.03f);
+            image_GemBlue.color = new Color(1f, 1f, 1f, 0.1f);
         }
 
         if (GameManager.instance.isCollectGemStone_Green)
@@ -40,7 +40,7 @@ public class GemsUI : MonoBehaviour
         }
         else
         {
-            image_GemGreen.color = new Color(1f, 1f, 1f, 0.03f);
+            image_GemGreen.color = new Color(1f, 1f, 1f, 0.1f);
         }
     }
 }

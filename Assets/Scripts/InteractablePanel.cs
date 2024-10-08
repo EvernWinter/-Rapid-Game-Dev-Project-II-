@@ -7,17 +7,18 @@ using TMPro;
 
 public class InteractablePanel : MonoBehaviour
 {
-    [SerializeField] private GameObject _panel;
+    
     [SerializeField] private bool isBlinkingText;
     [SerializeField] private TextMeshProUGUI textEscape;
     [SerializeField] private float alpha;
     [SerializeField] private bool isBlinkingUp = false;
+    
 
     [SerializeField] private bool isShowingText;
 
     private void Start()
     {
-        _panel.SetActive(false);
+        gameObject.SetActive(false);
     }
     public void Update()
     {
@@ -67,14 +68,7 @@ public class InteractablePanel : MonoBehaviour
         isShowingText = false;
     }
     
-    public void Pause()
-    {
-        
-    }
-    public void UnPause()
-    {
-        
-    }
+    
 
     private IEnumerator BlinkingTextFlashlight()
     {

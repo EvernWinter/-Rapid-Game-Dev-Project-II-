@@ -46,9 +46,12 @@ public class WoodenDoor : MonoBehaviour
         {
             if (doorMode == Mode.CrystalTrigger)
             {
-                if (_targetGem.puzzlePassed)
+                if (_targetGem != null)
                 {
-                    OpenDoor();
+                    if (GameManager.instance.isCollectGemStone_Green)
+                    {
+                        OpenDoor();
+                    }
                 }
             }
 

@@ -52,9 +52,19 @@ public class Staff : MonoBehaviour
         // Check for shooting input and manage cooldown
         if (Input.GetButtonDown("Fire1") && Time.time >= nextShootTime)
         {
+            
             SoundManager.Instance.UseStaffFireSound();
             Shoot(bullet);
             nextShootTime = Time.time + shootCooldown;
+        }
+
+        if (Time.time >= nextShootTime)
+        {
+            GameManager.instance.SetIcon(1, "shoot");
+        }
+        else
+        {
+            GameManager.instance.SetIcon(0, "shoot");
         }
 
         // Update cooldown UI
