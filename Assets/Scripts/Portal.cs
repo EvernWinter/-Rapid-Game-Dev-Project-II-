@@ -15,6 +15,8 @@ public class Portal : MonoBehaviour
     [SerializeField] public bool isPass = false;   // Whether the door should open
     [SerializeField] private string nextScene;       // Name of the scene to load when passing through the door
     private bool previousPassState = false;         // To track if isPass has changed
+    [SerializeField] public GameObject gems;
+    [SerializeField] public bool open = false;
 
     private SpriteRenderer spriteRenderer;  // Reference to the SpriteRenderer
     private Vector3 defaultScale;            // Store the default scale
@@ -28,21 +30,23 @@ public class Portal : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        // Check if isPass has changed
-        if (isPass != previousPassState)
+        // Only update if the state has changed
+        if (open != previousPassState || isPass != previousPassState)
         {
-            UpdateDoorState();  // Update door state when isPass changes
-            previousPassState = isPass;  // Store the new state
+            UpdateDoorState();  // Update door state when isPass or open changes
+            previousPassState = open;  // Store the new state
         }
     }
 
     // Update the door's visual state based on isPass
     private void UpdateDoorState()
     {
-        if (isPass)
+        Debug.Log($"isPass: {isPass}, open: {open}");
+        if (isPass && open)
         {
+            Debug.Log("Starting Open Door Coroutine");
             StartCoroutine(OpenDoor()); // Start opening animation
         }
         else
@@ -56,7 +60,6 @@ public class Portal : MonoBehaviour
     {
         StartCoroutine(OpenDoor());
     }
-
 
     // Coroutine to handle door opening "animation" by changing sprites and scaling
     private IEnumerator OpenDoor()
@@ -101,7 +104,9 @@ public class Portal : MonoBehaviour
         if (isPass && other.CompareTag("Player")) // Ensure the object is the player
         {
             // Load the next scene specified by nextScene
-            SceneManager.LoadScene(nextScene);
+            
         }
     }
+    
+    
 }

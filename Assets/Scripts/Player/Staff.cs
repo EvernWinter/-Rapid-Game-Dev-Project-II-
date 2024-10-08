@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Staff : MonoBehaviour
@@ -27,8 +28,13 @@ public class Staff : MonoBehaviour
     private float shootCooldown = 1f; // Cooldown
     private float nextShootTime = 0f; // Time at which the player can shoot again
     [SerializeField] private float bulletSpd;
+    
 
     [Header("Player")] [SerializeField] private float xScale;
+
+    
+    [SerializeField] private TMP_Text cooldownText; // Reference to the TextMeshPro component
+    private bool isCollectedGems = true; // Ensure this is set appropriately
     // Start is called before the first frame update
     void Start()
     {
@@ -43,12 +49,17 @@ public class Staff : MonoBehaviour
         UpdateAimTransform();
         RotateStaffAroundHip();
 
-        if (Input.GetButtonDown("Fire1") && Time.time >= nextShootTime) // Replace "Fire1" with the input button for shooting
+        // Check for shooting input and manage cooldown
+        if (Input.GetButtonDown("Fire1") && Time.time >= nextShootTime && isCollectedGems)
         {
             SoundManager.Instance.UseStaffFireSound();
             Shoot(bullet);
             nextShootTime = Time.time + shootCooldown;
         }
+
+        // Update cooldown UI
+        UpdateCooldownUI();
+
         Debug.DrawLine(shootPosition.position, mousePosition, Color.red);
     }
 
@@ -152,5 +163,21 @@ public class Staff : MonoBehaviour
             yield return new WaitForSeconds(animationSpeed); // Wait before changing to the next sprite
         }
         spriteRenderer.sprite = null;
+    }
+    
+    private void UpdateCooldownUI()
+    {
+        // Calculate remaining cooldown time
+        float remainingTime = nextShootTime - Time.time;
+
+        // If still on cooldown, update the text
+        if (remainingTime > 0)
+        {
+            cooldownText.text = $"{remainingTime:F1}"; // Format to one decimal place
+        }
+        else
+        {
+            cooldownText.text = ""; // Display "Ready" when the cooldown is over
+        }
     }
 }

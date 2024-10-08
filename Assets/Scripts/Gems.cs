@@ -12,9 +12,10 @@ public class Gems : MonoBehaviour
     private SpriteRenderer gemRenderer;
     public GameObject cage;
     private SpriteRenderer cageRenderer;
-    [SerializeField] private bool puzzlePassed = false;
+    [SerializeField] public bool puzzlePassed = false;
     [SerializeField] private bool drop = false;
     [SerializeField] private Transform dropPosition; // Final position to drop to
+    [SerializeField] public GameObject[] portal;
        
 
     public float dropSpeed = 1.0f;
@@ -91,6 +92,7 @@ public class Gems : MonoBehaviour
 
             case GemStoneTypeEnum.Red:
                 GameManager.instance.isCollectGemStone_Red = true;
+                
                 break;
 
             case GemStoneTypeEnum.Green:
@@ -121,6 +123,10 @@ public class Gems : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            for (int i = 0; i < portal.Length; i++)
+            {
+                portal[i].GetComponent<Portal>().open = true;
+            }
             // Handle gem interaction with player, e.g., making it disappear
             gemRenderer.enabled = false; // Make the gem disappear visually
             CollectGem();
